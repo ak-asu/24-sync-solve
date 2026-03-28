@@ -8,6 +8,8 @@
 ## Team "Sync&Solve"
 - Debaleena Chakraborty
 - Shrey Bishnoi
+- Aakash Khepar
+- Bhavya Shah
 
 ## Project Overview
 Brief description of your project and its goals.
