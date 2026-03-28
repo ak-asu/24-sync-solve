@@ -1,9 +1,17 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
-import { getChapterBySlug } from '@/features/chapters/queries/getChapter'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { getChapterBySlug, getAllChapterSlugs } from '@/features/chapters/queries/getChapter'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+
+/** Pre-render all active chapter routes at build time (SSG) */
+export async function generateStaticParams() {
+  const supabase = createAdminClient()
+  const slugs = await getAllChapterSlugs(supabase)
+  return slugs.map((chapter) => ({ chapter }))
+}
 
 interface ChapterLayoutProps {
   children: React.ReactNode
