@@ -155,7 +155,8 @@
       "loadMore": "Load more coaches",
       "coachCountZero": "No coaches found",
       "coachCount": "{count}+ coaches found",
-      "clearFilters": "Clear filters"
+      "clearFilters": "Clear filters",
+      "otherCoaches": "Browse all coaches"
     },
     "card": {
       "certifiedSince": "Certified {date}",
@@ -700,7 +701,8 @@
       "approvals": "Approvals",
       "events": "Events",
       "payments": "Payments",
-      "settings": "Settings"
+      "settings": "Settings",
+      "generate": "Generate Content"
     },
     "payments": {
       "heading": "Payments",
@@ -907,5 +909,51 @@
       "confirmed": "Confirmed",
       "pending": "Pending"
     }
+  },
+  "chapterInABox": {
+    "pageTitle": "Generate Homepage Content",
+    "pageSubtitle": "AI drafts content blocks for your chapter's homepage. All content is saved for approval before going live.",
+    "approvalNote": "Generated blocks will be pending approval — review them in the Approvals tab.",
+    "languageLabel": "Content Language",
+    "languages": {
+      "en": "English",
+      "pt-BR": "Portuguese (Brazil)",
+      "es": "Spanish",
+      "fr": "French",
+      "ar": "Arabic",
+      "de": "German",
+      "ja": "Japanese"
+    },
+    "culturalContextLabel": "Cultural Context (optional)",
+    "culturalContextPlaceholder": "e.g. Brazilian business culture values relationship-building and warmth...",
+    "coachesHeading": "Coach Profiles (1–3)",
+    "coachesSubtitle": "Provide at least one coach to feature on the homepage.",
+    "coachNameLabel": "Full Name",
+    "coachTitleLabel": "Title (optional)",
+    "coachBioLabel": "Short Bio",
+    "coachPhotoLabel": "Photo (optional)",
+    "addCoach": "Add Another Coach",
+    "removeCoach": "Remove",
+    "eventHeading": "Upcoming Event (optional)",
+    "eventTitleLabel": "Event Title",
+    "eventDateLabel": "Date",
+    "eventDescLabel": "Description",
+    "testimonialHeading": "Testimonial",
+    "testimonialSubtitle": "A quote from someone who has benefited from Action Learning.",
+    "testimonialQuoteLabel": "Quote",
+    "testimonialAuthorLabel": "Author Name",
+    "testimonialTitleLabel": "Author Title (optional)",
+    "testimonialOrgLabel": "Organization (optional)",
+    "testimonialPhotoLabel": "Photo (optional)",
+    "heroImageLabel": "Hero Banner Image (optional)",
+    "uploadButton": "Upload Photo",
+    "uploading": "Uploading…",
+    "photoUploaded": "Photo uploaded",
+    "uploadError": "Upload failed. Please try again.",
+    "generateButton": "Generate Content",
+    "generating": "Generating… (up to 30 seconds)",
+    "successMessage": "{count} content blocks generated. Review them in the Approvals tab.",
+    "skipLink": "Skip for now",
+    "backToChapter": "Back to Chapter"
   }
 }

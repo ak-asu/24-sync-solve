@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { getAllChaptersAdmin } from '@/features/chapters/queries/getChapterAdmin'
 import { formatDate } from '@/lib/utils/format'
-import { Plus, Pencil, Globe } from 'lucide-react'
+import { Plus, Pencil, Globe, Sparkles } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Chapters' }
 
@@ -85,7 +85,7 @@ export default async function AdminChaptersPage() {
                       />
                       <div>
                         <p className="font-semibold text-gray-900">{chapter.name}</p>
-                        <p className="text-xs text-gray-400">/{chapter.slug}</p>
+                        <p className="text-xs text-gray-600">/{chapter.slug}</p>
                       </div>
                     </div>
                   </td>
@@ -113,6 +113,14 @@ export default async function AdminChaptersPage() {
                       >
                         <Pencil size={12} aria-hidden="true" />
                         Edit
+                      </Link>
+                      <Link
+                        href={`/admin/chapters/${chapter.id}/generate`}
+                        className="flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100"
+                        aria-label={`Generate content for ${chapter.name}`}
+                      >
+                        <Sparkles size={12} aria-hidden="true" />
+                        Generate
                       </Link>
                       <Link
                         href={`/${chapter.slug}`}

@@ -7,25 +7,45 @@ import {
   getYouTubeThumbnail,
 } from '@/features/resources/types'
 import { ResourceCardClient } from '@/components/resources/ResourceCardClient'
+import { ResourceAIControls } from '@/components/resources/ResourceAIControls'
 import type { Resource } from '@/features/resources/types'
 import type { TeachingCoachPreview } from '@/features/resources/queries/getCoachCourseMappings'
 
 interface ResourceCardProps {
   resource: Resource
   teachingCoaches?: TeachingCoachPreview[]
+  canGenerateAI?: boolean
   /** Pass true/false when the user is authenticated to show the completion badge. */
   isCompleted?: boolean
 }
 
-const TYPE_ICONS: Record<string, typeof ExternalLink> = {
+type ResourceDisplayType = 'video' | 'article' | 'pdf' | 'link' | 'webinar'
+
+const TYPE_ICONS: Record<ResourceDisplayType, typeof Play> = {
   video: Play,
   article: FileText,
-  pdf: Download,
+  pdf: FileDown,
   link: ExternalLink,
   webinar: Play,
 }
 
-const CTA_LABELS: Record<string, string> = {
+const TYPE_LABELS: Record<ResourceDisplayType, string> = {
+  video: RESOURCE_TYPE_LABELS.video,
+  article: RESOURCE_TYPE_LABELS.article,
+  pdf: RESOURCE_TYPE_LABELS.pdf,
+  link: RESOURCE_TYPE_LABELS.link,
+  webinar: 'Webinar',
+}
+
+const TYPE_COLORS: Record<ResourceDisplayType, string> = {
+  video: RESOURCE_TYPE_COLORS.video,
+  article: RESOURCE_TYPE_COLORS.article,
+  pdf: RESOURCE_TYPE_COLORS.pdf,
+  link: RESOURCE_TYPE_COLORS.link,
+  webinar: 'bg-teal-100 text-teal-700',
+}
+
+const CTA_LABELS: Record<ResourceDisplayType, string> = {
   video: 'Watch',
   article: 'Read',
   pdf: 'Download',
@@ -33,10 +53,21 @@ const CTA_LABELS: Record<string, string> = {
   webinar: 'Watch',
 }
 
-export function ResourceCard({ resource, teachingCoaches = [], isCompleted }: ResourceCardProps) {
-  const Icon = TYPE_ICONS[resource.type] ?? ExternalLink
+
+export function ResourceCard({ resource, teachingCoaches = [], isCompleted, canGenerateAI = false }: ResourceCardProps) {
+  const looksLikeWebinar = /webinar/i.test(resource.url) || /webinar/i.test(resource.category ?? '')
+  const safeType: ResourceDisplayType = looksLikeWebinar
+    ? 'webinar'
+    : resource.type in TYPE_ICONS
+      ? (resource.type as ResourceDisplayType)
+      : 'link'
+  const Icon = TYPE_ICONS[safeType]
+  const typeLabel = TYPE_LABELS[safeType]
+  const typeColor = TYPE_COLORS[safeType]
+  const ctaLabel = CTA_LABELS[safeType] ?? 'Open'
   const thumbnail =
-    resource.thumbnail_url ?? (resource.type === 'video' ? getYouTubeThumbnail(resource.url) : null)
+    resource.thumbnail_url ??
+    (safeType === 'video' || safeType === 'webinar' ? getYouTubeThumbnail(resource.url) : null)
   const isExternal = resource.type !== 'pdf'
   const isAuthenticated = isCompleted !== undefined
 
@@ -59,17 +90,17 @@ export function ResourceCard({ resource, teachingCoaches = [], isCompleted }: Re
         )}
         {/* Type badge overlay */}
         <span
-          className={`absolute inset-s-2 top-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${RESOURCE_TYPE_COLORS[resource.type]}`}
+          className={`absolute inset-s-2 top-2 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${typeColor}`}
         >
           <Icon size={10} aria-hidden="true" />
-          {RESOURCE_TYPE_LABELS[resource.type]}
+          {typeLabel}
         </span>
       </div>
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-2 p-4">
         {resource.category && (
-          <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">
+          <p className="text-xs font-medium tracking-wide text-gray-600 uppercase">
             {resource.category}
           </p>
         )}
@@ -140,6 +171,13 @@ export function ResourceCard({ resource, teachingCoaches = [], isCompleted }: Re
             ))}
           </div>
         )}
+        <ResourceAIControls
+          resourceId={resource.id}
+          resourceType={resource.type}
+          canGenerateAI={canGenerateAI}
+          initialSummary={resource.ai_summary}
+          initialMarketing={resource.ai_marketing}
+        />
 
         {/* CTA — interactive (completion tracking) when authenticated, static otherwise */}
         {isAuthenticated ? (
@@ -148,7 +186,7 @@ export function ResourceCard({ resource, teachingCoaches = [], isCompleted }: Re
             initialCompleted={isCompleted}
             resourceUrl={resource.url}
             isExternal={isExternal}
-            ctaLabel={CTA_LABELS[resource.type] ?? 'Open'}
+            ctaLabel={ctaLabel}
           />
         ) : (
           <div className="mt-auto pt-3">
@@ -158,7 +196,7 @@ export function ResourceCard({ resource, teachingCoaches = [], isCompleted }: Re
               rel={isExternal ? 'noopener noreferrer' : undefined}
               className="text-wial-red hover:text-wial-red-dark inline-flex items-center gap-1 text-xs font-semibold"
             >
-              {CTA_LABELS[resource.type] ?? 'Open'}
+              {ctaLabel}
               <ExternalLink size={10} aria-hidden="true" />
               {isExternal && <span className="sr-only"> (opens in new tab)</span>}
             </a>

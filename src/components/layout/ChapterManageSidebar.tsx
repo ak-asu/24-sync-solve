@@ -12,6 +12,7 @@ import {
   FileText,
   Calendar,
   CreditCard,
+  Sparkles,
 } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 
@@ -56,6 +57,7 @@ export function ChapterManageSidebar({
     },
     { href: `/${chapterSlug}/events/manage`, label: 'Events', icon: Calendar },
     { href: `${base}/payments`, label: 'Payments', icon: CreditCard },
+    { href: `${base}/generate`, label: 'Generate Content', icon: Sparkles },
     { href: `${base}/settings`, label: 'Settings', icon: Settings },
   ]
 

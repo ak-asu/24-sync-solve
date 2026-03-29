@@ -44,7 +44,11 @@
       "Bash(find c:/Users/presyze/Projects/ASU/ohack/src/app -name *payment* -o -name *manage*)",
       "Bash(grep -r \"resend\\\\|email\\\\|nodemailer\\\\|SendGrid\\\\|Mailgun\" c:/Users/presyze/Projects/ASU/ohack/src --include=*.ts --include=*.tsx)",
       "Bash(grep -rn \"event_id.*metadata\\\\|metadata.*event\" c:/Users/presyze/Projects/ASU/ohack/src --include=*.ts --include=*.tsx)",
-      "Bash(ls -la /c/Users/presyze/Projects/ASU/ohack/src/app/\\\\\\(global\\\\\\)/events/)"
+      "Bash(ls -la /c/Users/presyze/Projects/ASU/ohack/src/app/\\\\\\(global\\\\\\)/events/)",
+      "Bash(grep -r \"provision_chapter_pages\\\\|content_blocks\" /c/Users/presyze/Projects/ASU/ohack/supabase/ --include=*.sql -l)",
+      "Bash(grep -n \"coaches\\\\|resources\\\\|events\\\\|contact\" \"/c/Users/presyze/Projects/ASU/ohack/supabase/migrations\"/*.sql)",
+      "Bash(grep -A1 \"block_type::\" \"/c/Users/presyze/Projects/ASU/ohack/supabase/migrations\"/*.sql)",
+      "Bash(grep -B5 -A15 \"coaches_page\\\\|resources_page\\\\|events_page\\\\|contact_page\\\\|coaches.*slug.*=.*''coaches''\" \"/c/Users/presyze/Projects/ASU/ohack/supabase/migrations\"/*.sql)"
     ],
     "additionalDirectories": [
       "c:\\Users\\presyze\\Projects\\ASU\\ohack\\src\\app\\[chapter]\\manage",

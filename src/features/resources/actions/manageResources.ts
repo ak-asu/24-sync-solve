@@ -9,6 +9,7 @@ import {
   getPermissionContext,
 } from '@/lib/permissions/context'
 import { analyzeResourceContent } from '@/features/knowledge/ai'
+import { generateResourceMarketingAction } from '@/features/resources/actions/generateResourceAI'
 import type { ActionResult } from '@/types'
 
 interface CoachCourseMappingsTableAdapter {
@@ -195,6 +196,10 @@ export async function createResourceAction(
         parsed.authors
       )
     }
+    // Prefill AI summary + promoter cache at upload time so end users can open ready-made content.
+    if (data?.id) {
+      await generateResourceMarketingAction(data.id)
+    }
 
     revalidatePath('/resources')
     revalidatePath('/resources/manage')
@@ -243,8 +248,12 @@ export async function updateResourceAction(
         authors: parsed.authors || null,
         presenter: parsed.presenter || null,
         published_year: parsed.published_year || null,
+        ai_summary: null,
+        ai_summary_generated_at: null,
+        ai_marketing: null,
+        ai_marketing_generated_at: null,
         ...aiData,
-      } as any)
+      })
       .eq('id', resourceId)
 
     if (error) throw new Error(error.message)

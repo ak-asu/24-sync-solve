@@ -44,7 +44,11 @@ export function ChapterForm({ chapter }: ChapterFormProps) {
   useEffect(() => {
     if (state?.success) {
       toast.success(state.message ?? (isEdit ? t('form.saveButton') : t('form.createButton')))
-      router.push('/admin/chapters')
+      if (isEdit) {
+        router.push('/admin/chapters')
+      } else {
+        router.push(`/admin/chapters/${state.data.id}/generate`)
+      }
     }
   }, [state, isEdit, router, t])
 

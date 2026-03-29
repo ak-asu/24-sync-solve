@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@heroui/react', 'lucide-react'],
   },
+  serverExternalPackages: ['@xenova/transformers'],
   turbopack: {
     root: projectRoot,
   },
@@ -52,6 +53,12 @@ const nextConfig: NextConfig = {
   },
 
   images: {
+    // Supabase Storage is served via Cloudflare CDN which already handles
+    // format negotiation and edge caching. Next.js's image optimization proxy
+    // is disabled because DNS resolves Supabase hostnames via NAT64 IPv6
+    // (64:ff9b:: prefix), which Next.js's SSRF protection incorrectly treats
+    // as private IPs and rejects with a 400 error.
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {

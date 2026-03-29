@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useTransition, useCallback } from 'react'
+import { useState, useTransition, useCallback, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Search, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Button, Input, ListBox, ListBoxItem, Select } from '@heroui/react'
+import { Button } from '@heroui/react'
 import { CoachCard } from '@/components/coaches/CoachCard'
+import { UnifiedCoachSearch } from '@/components/search/UnifiedCoachSearch'
+import { createClient } from '@/lib/supabase/client'
 import type { CoachWithBasicProfile } from '@/features/coaches/queries/getCoaches'
-import { CERTIFICATION_ORDER } from '@/lib/utils/constants'
 
 interface CoachDirectoryProps {
   initialCoaches: CoachWithBasicProfile[]
@@ -31,6 +31,9 @@ export function CoachDirectory({
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
   const [localQ, setLocalQ] = useState(initialFilters.q)
+  const [allCoaches, setAllCoaches] = useState<CoachWithBasicProfile[] | null>(null)
+  const [isLoadingAll, setIsLoadingAll] = useState(false)
+  const [isAISearchActive, setIsAISearchActive] = useState(false)
 
   const updateFilter = useCallback(
     (key: string, value: string) => {
@@ -42,18 +45,11 @@ export function CoachDirectory({
       }
       params.delete('cursor') // Reset pagination on filter change
       startTransition(() => {
-        router.push(`?${params.toString()}`)
+        router.push(`?${params.toString()}`, { scroll: false })
       })
     },
     [router, searchParams]
   )
-
-  const clearFilters = () => {
-    setLocalQ('')
-    startTransition(() => {
-      router.push('/coaches')
-    })
-  }
 
   const hasActiveFilters =
     initialFilters.q ||
@@ -61,159 +57,175 @@ export function CoachDirectory({
     initialFilters.country ||
     initialFilters.chapter
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (localQ !== initialFilters.q && localQ.trim()) {
+        updateFilter('q', localQ)
+      }
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [localQ])
+
+  // Fetch all coaches when filtered search returns no results
+  useEffect(() => {
+    let isMounted = true
+
+    const fetchAllCoaches = async () => {
+      if (hasActiveFilters && initialCoaches.length === 0 && !allCoaches) {
+        setIsLoadingAll(true)
+        try {
+          const supabase = createClient()
+          const { data } = await supabase
+            .from('coaches')
+            .select(
+              'id, user_id, headline, country, certifications, profile_image_url, is_published, chapter_id'
+            )
+            .eq('is_published', true)
+            .limit(12)
+          if (isMounted && data) {
+            setAllCoaches(data as CoachWithBasicProfile[])
+          }
+        } catch (error) {
+          console.error('Failed to fetch all coaches:', error)
+        } finally {
+          if (isMounted) {
+            setIsLoadingAll(false)
+          }
+        }
+      } else if (initialCoaches.length > 0) {
+        // Reset when results are found
+        setAllCoaches(null)
+      }
+    }
+
+    fetchAllCoaches()
+    return () => {
+      isMounted = false
+    }
+  }, [hasActiveFilters, initialCoaches.length])
+
+  const clearFilters = () => {
+    setLocalQ('')
+    setAllCoaches(null)
+    startTransition(() => {
+      router.push('/coaches')
+    })
+  }
+
   const t = useTranslations('coaches.directory')
   const coachCount = initialCoaches.length
 
   return (
-    <>
-      {/* Search + Filters */}
-      <div className="mb-6 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-        <div className="flex flex-col gap-4 md:flex-row">
-          {/* Search input */}
-          <div className="flex-1">
-            <div className="relative flex items-center">
-              <Search
-                size={16}
-                className="pointer-events-none absolute inset-s-3 text-gray-400"
-                aria-hidden="true"
-              />
-              <Input
-                id="coach-search"
-                type="search"
-                value={localQ}
-                onChange={(e) => setLocalQ(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') updateFilter('q', localQ)
-                }}
-                onBlur={() => {
-                  if (localQ !== initialFilters.q) updateFilter('q', localQ)
-                }}
-                placeholder={t('searchPlaceholder')}
-                aria-label={t('searchLabel')}
-                className="w-full ps-9"
-              />
-            </div>
-          </div>
-
-          {/* Certification filter */}
-          <div>
-            <label id="cert-filter-label" htmlFor="cert-filter-trigger" className="sr-only">
-              {t('filterCertLabel')}
-            </label>
-            <Select
-              aria-labelledby="cert-filter-label"
-              selectedKey={initialFilters.certification || null}
-              onSelectionChange={(key) => updateFilter('certification', String(key ?? ''))}
-            >
-              <Select.Trigger id="cert-filter-trigger">
-                <Select.Value />
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover>
-                <ListBox aria-label={t('filterCertLabel')}>
-                  {CERTIFICATION_ORDER.map((level) => (
-                    <ListBoxItem key={level} id={level} textValue={level}>
-                      {level}
-                    </ListBoxItem>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-            </Select>
-          </div>
-
-          {/* Chapter filter */}
-          <div>
-            <label id="chapter-filter-label" htmlFor="chapter-filter-trigger" className="sr-only">
-              {t('filterChapterLabel')}
-            </label>
-            <Select
-              aria-labelledby="chapter-filter-label"
-              selectedKey={initialFilters.chapter || null}
-              onSelectionChange={(key) => updateFilter('chapter', String(key ?? ''))}
-            >
-              <Select.Trigger id="chapter-filter-trigger">
-                <Select.Value />
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover>
-                <ListBox aria-label={t('filterChapterLabel')}>
-                  {chapters.map((ch) => (
-                    <ListBoxItem key={ch.slug} id={ch.slug} textValue={ch.name}>
-                      {ch.name}
-                    </ListBoxItem>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-            </Select>
-          </div>
-
-          {/* Clear filters */}
-          {hasActiveFilters && (
-            <Button
-              type="button"
-              onPress={clearFilters}
-              variant="outline"
-              aria-label={t('clearFiltersLabel')}
-            >
-              <X size={14} aria-hidden="true" />
-              {t('clearButton')}
-            </Button>
-          )}
+    <div className="mx-auto flex w-full flex-1 flex-col gap-8">
+      {/* Unified Smart Search */}
+      <section aria-labelledby="unified-search-heading">
+        <h2 id="unified-search-heading" className="text-wial-navy mb-4 text-xl font-bold">
+          Find Your Coach
+        </h2>
+        <div className="mb-6">
+          <UnifiedCoachSearch
+            onTextSearch={(q) => updateFilter('q', q)}
+            onAISearchModeChange={setIsAISearchActive}
+            textSearchPlaceholder={t('searchPlaceholder')}
+            searchLabel={t('searchLabel')}
+            isTextSearching={isPending}
+            currentQuery={initialFilters.q}
+          />
         </div>
-      </div>
-
-      {/* Results count */}
-      <div className="mb-4 flex items-center justify-between" aria-live="polite" aria-atomic="true">
-        <p className="text-sm text-gray-500">
-          {isPending ? (
-            t('searching')
-          ) : (
-            <>{coachCount === 0 ? t('coachCountZero') : t('coachCount', { count: coachCount })}</>
-          )}
+        <p className="text-xs text-gray-500">
+          💡 <strong>Tip:</strong> Try natural language ("I need a leadership coach in Brazil") or
+          search by name, certification (PALC, SALC), or location.
         </p>
-      </div>
+      </section>
 
-      {/* Coach grid */}
-      {isPending ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="h-48 animate-pulse rounded-2xl bg-white p-4" />
-          ))}
-        </div>
-      ) : initialCoaches.length === 0 ? (
-        <div className="py-20 text-center">
-          <p className="font-medium text-gray-500">{t('noResults')}</p>
-          <p className="mt-2 text-sm text-gray-400">{t('noResultsHint')}</p>
-          <Button
-            type="button"
-            onPress={clearFilters}
-            variant="ghost"
-            className="text-wial-red hover:text-wial-red-dark mt-4 text-sm font-medium"
+      {/* Results section - Hidden when AI search is active */}
+      {!isAISearchActive && (
+        <section aria-labelledby="results-heading">
+          <h2 id="results-heading" className="sr-only">
+            Available Coaches
+          </h2>
+          <div
+            className="mb-4 flex items-center justify-between"
+            aria-live="polite"
+            aria-atomic="true"
           >
-            {t('clearAllFilters')}
-          </Button>
-        </div>
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {initialCoaches.map((coach) => (
-            <CoachCard key={coach.id} coach={coach} />
-          ))}
-        </div>
-      )}
+            <p className="text-sm text-gray-500">
+              {isPending ? (
+                t('searching')
+              ) : (
+                <>
+                  {coachCount === 0 ? t('coachCountZero') : t('coachCount', { count: coachCount })}
+                </>
+              )}
+            </p>
+          </div>
 
-      {/* Load more */}
-      {initialNextCursor && (
-        <div className="mt-8 text-center">
-          <Button
-            type="button"
-            onPress={() => updateFilter('cursor', initialNextCursor)}
-            variant="outline"
-            className="text-sm font-medium text-gray-700"
-          >
-            {t('loadMore')}
-          </Button>
-        </div>
+          {/* Coach grid */}
+          {isPending ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="h-48 animate-pulse rounded-2xl bg-white p-4" />
+              ))}
+            </div>
+          ) : initialCoaches.length === 0 ? (
+            <>
+              {/* No matching results message */}
+              <div className="py-20 text-center">
+                <p className="font-medium text-gray-500">{t('noResults')}</p>
+                <p className="mt-2 text-sm text-gray-400">{t('noResultsHint')}</p>
+                <Button
+                  type="button"
+                  onPress={clearFilters}
+                  variant="ghost"
+                  className="text-wial-red hover:text-wial-red-dark mt-4 text-sm font-medium"
+                >
+                  {t('clearAllFilters')}
+                </Button>
+              </div>
+
+              {/* Show other coaches if filters were applied but no results */}
+              {hasActiveFilters && (allCoaches || isLoadingAll) && (
+                <div className="mt-12 border-t pt-12">
+                  <h3 className="mb-6 text-lg font-semibold text-gray-800">{t('otherCoaches')}</h3>
+                  {isLoadingAll ? (
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <div key={i} className="h-48 animate-pulse rounded-2xl bg-white p-4" />
+                      ))}
+                    </div>
+                  ) : allCoaches && allCoaches.length > 0 ? (
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {allCoaches.map((coach) => (
+                        <CoachCard key={coach.id} coach={coach} />
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {initialCoaches.map((coach) => (
+                <CoachCard key={coach.id} coach={coach} />
+              ))}
+            </div>
+          )}
+
+          {/* Load more */}
+          {initialNextCursor && (
+            <div className="mt-8 text-center">
+              <Button
+                type="button"
+                onPress={() => updateFilter('cursor', initialNextCursor)}
+                variant="outline"
+                className="text-sm font-medium text-gray-700"
+              >
+                {t('loadMore')}
+              </Button>
+            </div>
+          )}
+        </section>
       )}
-    </>
+    </div>
   )
 }

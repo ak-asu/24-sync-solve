@@ -22,7 +22,15 @@ export function CoachCard({ coach }: CoachCardProps) {
   const certColor = CERT_COLORS[coach.certification_level] ?? 'bg-gray-100 text-gray-700'
 
   return (
-    <article className="group shadow-card hover:shadow-card-hover overflow-hidden rounded-2xl bg-white transition-shadow">
+    <article className="group shadow-card hover:shadow-card-hover relative overflow-hidden rounded-2xl bg-white transition-shadow">
+      {coach.similarityScore != null && (
+        <div
+          className="absolute top-3 right-3 z-10 rounded-full border border-green-200 bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-800 shadow-sm"
+          title={`Relevance Score: ${coach.similarityScore}`}
+        >
+          {Math.round(Number(coach.similarityScore) * 100)}% Match
+        </div>
+      )}
       <Link
         href={`/coaches/${coach.id}`}
         className="focus-visible:ring-wial-navy block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -89,7 +97,7 @@ export function CoachCard({ coach }: CoachCardProps) {
                 </span>
               ))}
               {coach.specializations.length > 3 && (
-                <span className="text-xs text-gray-400">+{coach.specializations.length - 3}</span>
+                <span className="text-xs text-gray-600">+{coach.specializations.length - 3}</span>
               )}
             </div>
           )}
