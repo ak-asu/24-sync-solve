@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ChevronLeft, Globe } from 'lucide-react'
+import { ChevronLeft, Globe, Sparkles } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { getChapterById } from '@/features/chapters/queries/getChapterAdmin'
 import { ChapterForm } from '@/components/admin/ChapterForm'
@@ -46,16 +46,26 @@ export default async function EditChapterPage({ params }: EditChapterPageProps) 
             Update chapter settings. Slug changes affect all chapter URLs.
           </p>
         </div>
-        <Link
-          href={`/${chapter.slug}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50"
-          aria-label={`View ${chapter.name} site (opens in new tab)`}
-        >
-          <Globe size={13} aria-hidden="true" />
-          View Site
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/admin/chapters/${chapter.id}/generate`}
+            className="flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50"
+            aria-label={`Generate content for ${chapter.name}`}
+          >
+            <Sparkles size={13} aria-hidden="true" />
+            Generate Content
+          </Link>
+          <Link
+            href={`/${chapter.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50"
+            aria-label={`View ${chapter.name} site (opens in new tab)`}
+          >
+            <Globe size={13} aria-hidden="true" />
+            View Site
+          </Link>
+        </div>
       </div>
 
       {/* Chapter info */}

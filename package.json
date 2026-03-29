@@ -23,6 +23,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
     "@heroui/react": "^3.0.1",
     "@heroui/styles": "^3.0.1",
     "@react-email/components": "^1.0.10",

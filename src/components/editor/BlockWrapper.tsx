@@ -141,15 +141,17 @@ export function BlockWrapper({
         {/* Block content */}
         <div className={block.is_visible ? '' : 'pointer-events-none select-none'}>{children}</div>
 
-        {/* Hidden overlay */}
+        {/* Hidden overlay — pointer-events-none so toolbar remains accessible */}
         {!block.is_visible && (
-          <div
-            className="absolute inset-0 flex items-center justify-center bg-gray-100/60"
-            aria-hidden="true"
-          >
-            <span className="rounded-full bg-gray-600 px-3 py-1 text-xs font-semibold text-white">
-              Hidden
-            </span>
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-gray-100/60">
+            <button
+              type="button"
+              onClick={handleToggleVisibility}
+              className="pointer-events-auto rounded-full bg-gray-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-1"
+              aria-label="Block is hidden — click to show"
+            >
+              Hidden — click to show
+            </button>
           </div>
         )}
       </div>
