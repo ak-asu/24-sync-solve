@@ -45,7 +45,23 @@
     },
     "about": {
       "heading": "What is Action Learning?",
-      "body": "Action Learning is a process that involves a small group working on real problems, taking action, and learning as individuals and as a team."
+      "body": "Action Learning is a process that involves a small group working on real problems, taking action, and learning as individuals and as a team.",
+      "learnMore": "Learn more about WIAL →"
+    },
+    "certification": {
+      "heading": "Four Levels of Certification",
+      "body": "WIAL certifications are recognized globally. Progress from entry-level CALC to master-level MALC and distinguish yourself as a practitioner of the highest caliber.",
+      "cta": "Explore Certification Paths"
+    },
+    "chapters": {
+      "heading": "A Global Community",
+      "body": "With chapters across 20+ countries, there is a WIAL community near you. Each chapter delivers local coaching, events, and certification support.",
+      "cta": "Find Your Chapter"
+    },
+    "finalCta": {
+      "heading": "Ready to Transform Your Organization?",
+      "body": "Join the global community of Action Learning coaches and practitioners.",
+      "cta": "Find a Coach"
     }
   },
   "auth": {

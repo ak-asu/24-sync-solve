@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   User,
   CreditCard,
-  Settings,
   ExternalLink,
   Receipt,
   Building2,
@@ -18,11 +17,13 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
+import { UserMenu } from '@/components/layout/UserMenu'
 import { getCoachProfileByUserId } from '@/features/coaches/queries/getCoachById'
 import { getUserPayments } from '@/features/payments/queries/getPayments'
 import { formatCurrency, formatDate } from '@/lib/utils/format'
 import { CERTIFICATION_LABELS } from '@/lib/utils/constants'
 import type { CertificationLevel, UserRole } from '@/types/database'
+import type { AuthUser, MembershipStatus } from '@/types'
 
 export const metadata: Metadata = { title: 'Dashboard' }
 
@@ -152,6 +153,19 @@ export default async function DashboardPage() {
     (CERTIFICATION_LABELS[coachProfile.certification_level as CertificationLevel] ??
       coachProfile.certification_level)
 
+  // Build AuthUser for UserMenu (same shape as Header.tsx)
+  const authUser: AuthUser = {
+    id: user.id,
+    email: user.email ?? '',
+    role: (profile?.role ?? 'user') as UserRole,
+    chapterId: profile?.chapter_id ?? null,
+    fullName: profile?.full_name ?? null,
+    avatarUrl: profile?.avatar_url ?? null,
+    isSuspended: false,
+    membershipStatus: (profile?.membership_status ?? 'none') as MembershipStatus,
+    chapterRoles: {},
+  }
+
   return (
     <>
       {/* ── Header ───────────────────────────────────────────────────────── */}
@@ -181,8 +195,8 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            {/* Membership status badge */}
-            <div className="flex items-center gap-2">
+            {/* Right side: membership badge + account menu */}
+            <div className="flex items-center gap-3">
               {membershipActive ? (
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-green-900/40 px-3 py-1.5 text-sm font-medium text-green-300 ring-1 ring-green-500/30">
                   <CheckCircle2 size={14} aria-hidden="true" />
@@ -199,6 +213,8 @@ export default async function DashboardPage() {
                   No membership
                 </span>
               )}
+              {/* Account menu — consistent with other page headers */}
+              <UserMenu user={authUser} />
             </div>
           </div>
         </div>
@@ -508,19 +524,6 @@ export default async function DashboardPage() {
                 <div>
                   <p className="font-medium text-gray-900">{t('quickActions.upcomingEvents')}</p>
                   <p className="text-xs text-gray-500">{t('quickActions.upcomingEventsHint')}</p>
-                </div>
-              </Link>
-
-              <Link
-                href="/account/settings"
-                className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-600">
-                  <Settings size={18} aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900">{t('quickActions.accountSettings')}</p>
-                  <p className="text-xs text-gray-500">{t('quickActions.accountSettingsHint')}</p>
                 </div>
               </Link>
             </div>

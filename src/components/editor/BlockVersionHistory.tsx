@@ -6,7 +6,7 @@ import {
   fetchVersionHistoryAction,
   revertToVersionAction,
 } from '@/features/content/actions/versionHistory'
-import type { ContentVersionItem } from '@/features/content/actions/versionHistory'
+import type { ContentVersionItem } from '@/features/content/queries/getApprovals'
 import { formatDate } from '@/lib/utils/format'
 
 interface BlockVersionHistoryProps {
@@ -24,7 +24,6 @@ export function BlockVersionHistory({ blockId, onReverted }: BlockVersionHistory
 
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
     fetchVersionHistoryAction(blockId)
       .then((data) => {
         if (!cancelled) {

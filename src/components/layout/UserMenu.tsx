@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { User, LogOut, Settings, LayoutDashboard, Award } from 'lucide-react'
+import { User, LogOut, LayoutDashboard, Award } from 'lucide-react'
 import { logoutAction } from '@/features/auth/actions/login'
 import type { AuthUser } from '@/types'
 
@@ -116,16 +116,6 @@ export function UserMenu({ user }: UserMenuProps) {
                 Apply to be a Coach
               </Link>
             )}
-
-            <Link
-              href="/account/settings"
-              role="menuitem"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-            >
-              <Settings size={16} aria-hidden="true" />
-              Account Settings
-            </Link>
           </div>
 
           <div className="border-t border-gray-100 py-1">

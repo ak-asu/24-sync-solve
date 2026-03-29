@@ -28,7 +28,10 @@
       "Bash(ls -la /c/Users/presyze/Projects/ASU/ohack/src/app/\\\\\\(global\\\\\\)/)",
       "Bash(ls -la /c/Users/presyze/Projects/ASU/ohack/src/app/\\\\\\(auth\\\\\\)/)",
       "Bash(find /c/Users/presyze/Projects/ASU/ohack/src -path *verify-email* -type f)",
-      "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -path *contact* -type f)"
+      "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -path *contact* -type f)",
+      "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
+      "Bash(grep \"\\\\.sql$\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\presyze\\Projects\\ASU\\ohack\\src\\app\\[chapter]\\manage"

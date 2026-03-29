@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { createStripeClient } from '@/lib/stripe/client'
 import { PAYMENT_AMOUNTS } from '@/lib/stripe/config'
-import type { ActionResult, PaymentType } from '@/types'
+import type { ActionResult } from '@/types'
 
 const checkoutSchema = z.object({
   payment_type: z.enum([

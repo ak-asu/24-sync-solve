@@ -9,8 +9,6 @@ import type { ContentVersionItem } from '@/features/content/queries/getApprovals
 import type { BlockUpdateResult } from '@/features/content/types'
 import type { BlockType, Json } from '@/types'
 
-export type { ContentVersionItem }
-
 /**
  * Fetch version history for a block.
  * Returns empty array if user lacks access (RLS blocks the query silently).

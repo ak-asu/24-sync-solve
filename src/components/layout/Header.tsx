@@ -23,7 +23,7 @@ export async function Header({ accentColor, chapterSlug, chapterName }: HeaderPr
   } = await supabase.auth.getUser()
 
   let currentUser: AuthUser | null = null
-  let managedChapters: {
+  const managedChapters: {
     chapterId: string
     chapterName: string
     chapterSlug: string

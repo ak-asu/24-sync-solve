@@ -105,15 +105,12 @@ export const GLOBAL_NAV_LINKS = [
   { href: '/coaches', labelKey: 'nav.coaches' },
   { href: '/resources', labelKey: 'nav.resources' },
   { href: '/events', labelKey: 'nav.events' },
-  { href: '/contact', labelKey: 'nav.contact' },
 ] as const
 
 /** Navigation links for chapter sub-sites */
 export const CHAPTER_NAV_LINKS = [
-  { href: '', labelKey: 'nav.home' },
   { href: '/about', labelKey: 'nav.about' },
   { href: '/coaches', labelKey: 'nav.coaches' },
   { href: '/events', labelKey: 'nav.events' },
-  { href: '/contact', labelKey: 'nav.contact' },
   { href: '/pay', labelKey: 'nav.pay' },
 ] as const

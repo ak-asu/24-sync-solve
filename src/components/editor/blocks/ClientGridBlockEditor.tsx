@@ -136,7 +136,7 @@ export function ClientGridBlockEditor({
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium text-gray-600">Logo</label>
+                <p className="mb-1 block text-xs font-medium text-gray-600">Logo</p>
                 <ImageUpload
                   value={client.logo_url ?? ''}
                   onChange={(url) => onChange({ ...client, logo_url: url || undefined })}
