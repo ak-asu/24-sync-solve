@@ -52,7 +52,8 @@
       "WebFetch(domain:elevenlabs.io)",
       "Bash(find /c/Users/presyze/Projects/ASU/ohack -name *migration* -o -name *.sql)",
       "WebFetch(domain:www.npmjs.com)",
-      "Bash(find c:/Users/presyze/Projects/ASU/ohack/node_modules/@elevenlabs/elevenlabs-js/dist/api -name SpeechToTextChunk*.d.ts)"
+      "Bash(find c:/Users/presyze/Projects/ASU/ohack/node_modules/@elevenlabs/elevenlabs-js/dist/api -name SpeechToTextChunk*.d.ts)",
+      "Bash(find c:/Users/presyze/Projects/ASU/ohack -type f \\\\\\(-name middleware* -o -name .middleware* \\\\\\))"
     ],
     "additionalDirectories": [
       "c:\\Users\\presyze\\Projects\\ASU\\ohack\\src\\app\\[chapter]\\manage",

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, getLocale } from 'next-intl/server'
 import { Toaster } from 'sonner'
 import '@/app/globals.css'
 
@@ -29,10 +29,10 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const messages = await getMessages()
+  const [messages, locale] = await Promise.all([getMessages(), getLocale()])
 
   return (
-    <html lang="en" className="h-full scroll-smooth" data-scroll-behavior="smooth">
+    <html lang={locale} className="h-full scroll-smooth" data-scroll-behavior="smooth">
       <body className="text-wial-navy flex min-h-full flex-col bg-white font-sans antialiased">
         {/* Skip to content — first focusable element, required for a11y */}
         <a href="#main-content" className="skip-to-content">

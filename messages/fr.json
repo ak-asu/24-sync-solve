@@ -1,0 +1,974 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "coaches": "Trouver un Coach",
+    "resources": "Ressources",
+    "events": "Événements",
+    "contact": "Contact",
+    "pay": "Payer les Cotisations",
+    "login": "Se connecter",
+    "register": "Commencer",
+    "dashboard": "Tableau de bord",
+    "logout": "Se déconnecter",
+    "adminPanel": "Panneau Admin",
+    "myProfile": "Mon Profil",
+    "skipToContent": "Passer au contenu principal",
+    "selectLanguage": "Langue"
+  },
+  "footer": {
+    "tagline": "Transformer les leaders par l'Action Learning",
+    "links": {
+      "heading": "Liens Rapides"
+    },
+    "chapters": {
+      "heading": "Nos Chapitres"
+    },
+    "legal": {
+      "privacy": "Politique de Confidentialité",
+      "terms": "Conditions d'Utilisation",
+      "copyright": "© {year} World Institute for Action Learning. Tous droits réservés."
+    }
+  },
+  "home": {
+    "hero": {
+      "headline": "Transformer les Leaders par l'Action Learning",
+      "subheadline": "WIAL certifie des coaches d'Action Learning dans plus de 20 pays, permettant aux organisations de résoudre des défis complexes grâce à la résolution collaborative de problèmes.",
+      "ctaPrimary": "Trouver un Coach",
+      "ctaSecondary": "Obtenir une Certification"
+    },
+    "stats": {
+      "countries": "Pays",
+      "coaches": "Coaches Certifiés",
+      "organizations": "Organisations Accompagnées",
+      "years": "Ans d'Impact"
+    },
+    "about": {
+      "heading": "Qu'est-ce que l'Action Learning ?",
+      "body": "L'Action Learning est un processus impliquant un petit groupe travaillant sur des problèmes réels, passant à l'action et apprenant en tant qu'individus et en tant qu'équipe.",
+      "learnMore": "En savoir plus sur WIAL →"
+    },
+    "certification": {
+      "heading": "Quatre Niveaux de Certification",
+      "body": "Les certifications WIAL sont reconnues mondialement. Progressez du niveau d'entrée CALC au niveau maître MALC et distinguez-vous comme praticien de la plus haute qualité.",
+      "cta": "Explorer les Parcours de Certification"
+    },
+    "chapters": {
+      "heading": "Une Communauté Mondiale",
+      "body": "Avec des chapitres dans plus de 20 pays, il y a une communauté WIAL près de chez vous. Chaque chapitre propose un coaching local, des événements et un soutien à la certification.",
+      "cta": "Trouver Votre Chapitre"
+    },
+    "finalCta": {
+      "heading": "Prêt à Transformer Votre Organisation ?",
+      "body": "Rejoignez la communauté mondiale de coaches et praticiens d'Action Learning.",
+      "cta": "Trouver un Coach"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous à votre compte WIAL",
+      "emailLabel": "Adresse e-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "submitButton": "Se connecter",
+      "submitting": "Connexion en cours...",
+      "forgotPassword": "Mot de passe oublié ?",
+      "noAccount": "Pas encore de compte ?",
+      "signUpLink": "S'inscrire",
+      "orContinueWith": "Ou continuer avec",
+      "googleButton": "Continuer avec Google",
+      "registeredMessage": "Compte créé ! Vérifiez votre e-mail pour confirmer votre adresse avant de vous connecter.",
+      "passwordUpdatedMessage": "Mot de passe mis à jour. Connectez-vous avec votre nouveau mot de passe.",
+      "unauthorizedMessage": "Vous n'avez pas la permission d'accéder à cette page.",
+      "authErrorMessage": "Échec de l'authentification. Veuillez réessayer."
+    },
+    "verifyEmail": {
+      "title": "Vérifiez votre e-mail",
+      "subtitle": "Confirmez votre adresse e-mail pour continuer",
+      "body": "Nous avons envoyé un lien de vérification à votre adresse e-mail. Cliquez dessus pour activer votre compte, puis connectez-vous.",
+      "resendButton": "Renvoyer l'e-mail de vérification",
+      "resending": "Envoi en cours…",
+      "resentSuccess": "E-mail de vérification envoyé ! Vérifiez votre boîte de réception.",
+      "resentError": "Échec de l'envoi. Veuillez réessayer.",
+      "backToLogin": "Retour à la connexion",
+      "alreadyVerified": "Déjà vérifié ? Essayez de vous reconnecter."
+    },
+    "register": {
+      "title": "Créez votre compte",
+      "subtitle": "Rejoignez la communauté mondiale WIAL",
+      "fullNameLabel": "Nom complet",
+      "fullNamePlaceholder": "Jean Dupont",
+      "emailLabel": "Adresse e-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Au moins 8 caractères",
+      "submitButton": "Créer un Compte",
+      "submitting": "Création du compte...",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "loginLink": "Se connecter",
+      "termsNotice": "En créant un compte, vous acceptez nos {termsLink} et notre {privacyLink}.",
+      "terms": "Conditions d'Utilisation",
+      "privacy": "Politique de Confidentialité"
+    },
+    "forgotPassword": {
+      "title": "Réinitialisez votre mot de passe",
+      "subtitle": "Entrez votre e-mail et nous vous enverrons un lien de réinitialisation",
+      "emailLabel": "Adresse e-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "submitButton": "Envoyer le Lien de Réinitialisation",
+      "submitting": "Envoi en cours...",
+      "successMessage": "Vérifiez votre e-mail pour trouver le lien de réinitialisation du mot de passe.",
+      "backToLogin": "Retour à la connexion"
+    },
+    "errors": {
+      "invalidCredentials": "E-mail ou mot de passe incorrect.",
+      "emailTaken": "Un compte avec cet e-mail existe déjà.",
+      "generic": "Une erreur s'est produite. Veuillez réessayer.",
+      "emailRequired": "L'e-mail est obligatoire.",
+      "passwordRequired": "Le mot de passe est obligatoire.",
+      "nameRequired": "Le nom complet est obligatoire."
+    }
+  },
+  "coaches": {
+    "directory": {
+      "title": "Trouver un Coach d'Action Learning",
+      "chapterTitle": "Nos Coaches",
+      "subtitle": "Parcourez notre répertoire mondial de coaches certifiés",
+      "chapterSubtitle": "Coaches certifiés d'Action Learning à {chapter}.",
+      "searchLabel": "Rechercher des coaches par nom, spécialité ou localisation",
+      "searchPlaceholder": "Rechercher par nom, spécialité ou localisation...",
+      "filterCertLabel": "Filtrer par niveau de certification",
+      "filterChapterLabel": "Filtrer par chapitre",
+      "filterCertification": "Niveau de certification",
+      "filterCountry": "Pays",
+      "filterChapter": "Chapitre",
+      "allCertifications": "Tous les niveaux",
+      "allCountries": "Tous les pays",
+      "allChapters": "Tous les chapitres",
+      "clearFiltersLabel": "Effacer tous les filtres",
+      "clearButton": "Effacer",
+      "searching": "Recherche en cours...",
+      "noResults": "Aucun coach trouvé correspondant à votre recherche.",
+      "noResultsHint": "Essayez d'ajuster vos filtres ou termes de recherche.",
+      "clearAllFilters": "Effacer tous les filtres",
+      "loadMore": "Charger plus de coaches",
+      "coachCountZero": "Aucun coach trouvé",
+      "coachCount": "{count}+ coaches trouvés",
+      "clearFilters": "Effacer les filtres",
+      "otherCoaches": "Parcourir tous les coaches"
+    },
+    "card": {
+      "certifiedSince": "Certifié le {date}",
+      "viewProfile": "Voir le profil",
+      "location": "{city}, {country}",
+      "contactCoach": "Contacter"
+    },
+    "profile": {
+      "bio": "À propos",
+      "specializations": "Spécialisations",
+      "languages": "Langues",
+      "certificationLevel": "Niveau de Certification",
+      "location": "Localisation",
+      "contact": "Contact",
+      "linkedin": "LinkedIn",
+      "chapter": "Chapitre",
+      "coachingHours": "Heures de Coaching",
+      "certifiedSince": "Certifié Depuis",
+      "recertificationDue": "Recertification Échéance"
+    },
+    "certificationLevels": {
+      "CALC": "Coach Certifié en Action Learning",
+      "PALC": "Coach Professionnel en Action Learning",
+      "SALC": "Coach Senior en Action Learning",
+      "MALC": "Coach Maître en Action Learning"
+    },
+    "edit": {
+      "title": "Mon Profil de Coach",
+      "photoLabel": "Photo de profil",
+      "aboutSection": "À Propos de Vous",
+      "bioLabel": "Biographie",
+      "bioHint": "Décrivez votre parcours et votre approche de l'Action Learning (max. 2000 caractères).",
+      "bioPlaceholder": "Parlez aux coaches et aux organisations de votre parcours et de votre approche de l'Action Learning...",
+      "specializationsSection": "Spécialisations",
+      "specializationsLabel": "Spécialisations",
+      "specializationsHint": "Ajoutez jusqu'à 20 domaines d'expertise.",
+      "addSpecializationLabel": "Ajouter une spécialisation",
+      "addSpecializationPlaceholder": "Saisissez une spécialisation et appuyez sur Entrée",
+      "languagesSection": "Langues",
+      "languagesLabel": "Langues",
+      "languagesHint": "Ajoutez les langues dans lesquelles vous pratiquez le coaching (au moins 1).",
+      "addLanguageLabel": "Ajouter une langue",
+      "addLanguagePlaceholder": "Saisissez une langue et appuyez sur Entrée",
+      "addButton": "Ajouter",
+      "removeItemLabel": "Supprimer {item}",
+      "locationSection": "Localisation et Contact",
+      "locationCityLabel": "Ville",
+      "locationCountryLabel": "Pays",
+      "contactEmailLabel": "E-mail de contact",
+      "contactEmailPublicNote": "(affiché publiquement)",
+      "linkedinLabel": "URL LinkedIn",
+      "saveButton": "Enregistrer les Modifications",
+      "saving": "Enregistrement...",
+      "savedSuccess": "Profil mis à jour avec succès.",
+      "pendingApproval": "Vos modifications sont en attente de révision par l'administrateur.",
+      "lockedFields": "Le niveau de certification et le statut de publication sont gérés par les administrateurs WIAL.",
+      "lockedFieldsNote": "Remarque :"
+    }
+  },
+  "events": {
+    "list": {
+      "title": "Événements",
+      "subtitle": "Ateliers, webinaires et conférences à venir",
+      "chapterSubtitle": "Prochains événements à {chapter}.",
+      "noEvents": "Aucun événement à venir pour le moment.",
+      "noEventsChapter": "Aucun événement à venir. Revenez bientôt.",
+      "checkBack": "Revenez bientôt pour de nouveaux événements.",
+      "viewAll": "Voir tous les événements",
+      "virtual": "Virtuel",
+      "inPerson": "En Présentiel",
+      "register": "S'inscrire",
+      "learnMore": "En savoir plus",
+      "learnMoreArrow": "En savoir plus →",
+      "free": "Gratuit",
+      "date": "{date}",
+      "time": "{time}",
+      "location": "{location}",
+      "manageEvents": "Gérer les Événements",
+      "createFirst": "Créer le premier événement →",
+      "ariaManageEvents": "Gérer les événements du chapitre"
+    },
+    "filterBar": {
+      "allTypes": "Tous les Événements",
+      "workshop": "Ateliers",
+      "webinar": "Webinaires",
+      "conference": "Conférences",
+      "certification": "Certification",
+      "networking": "Networking",
+      "upcomingOnly": "À venir uniquement",
+      "filterByTypeLabel": "Filtrer par type d'événement",
+      "upcomingOnlyLabel": "Afficher uniquement les événements à venir",
+      "searchLabel": "Rechercher des événements",
+      "searchPlaceholder": "Rechercher des événements…",
+      "sortLabel": "Trier les événements",
+      "sortDateAsc": "Date : Plus proches en premier",
+      "sortDateDesc": "Date : Plus éloignés en premier",
+      "sortTitleAsc": "Titre : A–Z"
+    },
+    "types": {
+      "workshop": "Atelier",
+      "webinar": "Webinaire",
+      "conference": "Conférence",
+      "certification": "Certification",
+      "networking": "Networking",
+      "other": "Événement"
+    },
+    "form": {
+      "createTitle": "Créer un Événement",
+      "editTitle": "Modifier l'Événement",
+      "titleLabel": "Titre de l'Événement",
+      "titlePlaceholder": "ex. Conférence Annuelle WIAL USA 2026",
+      "typeLabel": "Type d'Événement",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Décrivez l'événement, les objectifs et ce que les participants peuvent attendre...",
+      "startDateLabel": "Date et Heure de Début",
+      "endDateLabel": "Date et Heure de Fin",
+      "timezoneLabel": "Fuseau Horaire",
+      "timezonePlaceholder": "ex. America/New_York",
+      "isVirtualLabel": "Il s'agit d'un événement virtuel / en ligne",
+      "locationNameLabel": "Nom du Lieu",
+      "locationNamePlaceholder": "ex. Centre de Conventions de Washington",
+      "virtualLinkLabel": "Lien de Réunion Virtuelle",
+      "virtualLinkPlaceholder": "https://zoom.us/...",
+      "ticketPriceLabel": "Prix du Billet (USD)",
+      "ticketPricePlaceholder": "Laisser vide pour un événement gratuit",
+      "ticketPriceHint": "Les participants seront redirigés vers un checkout Stripe. Laisser vide pour un RSVP gratuit.",
+      "registrationUrlLabel": "URL d'Inscription Externe",
+      "registrationUrlPlaceholder": "https://eventbrite.com/... (remplacement optionnel)",
+      "registrationUrlHint": "Optionnel. Si défini, remplace l'inscription intégrée et redirige ici.",
+      "maxAttendeesLabel": "Nombre Maximum de Participants",
+      "maxAttendeesPlaceholder": "Laisser vide pour illimité",
+      "imageUrlLabel": "URL de l'Image de l'Événement",
+      "imageUrlPlaceholder": "https://...",
+      "isPublishedLabel": "Publier cet événement (le rendre visible sur le site public)",
+      "saveButton": "Enregistrer l'Événement",
+      "createButton": "Créer l'Événement",
+      "saving": "Enregistrement..."
+    },
+    "registration": {
+      "pageTitle": "Inscription — {title}",
+      "registerHeading": "S'inscrire à cet événement",
+      "purchaseHeading": "Acheter votre billet",
+      "freeLabel": "Gratuit",
+      "nameLabel": "Nom Complet",
+      "namePlaceholder": "Jean Dupont",
+      "nameHint": "Utilisé pour votre confirmation d'inscription. Laisser vide si vous êtes connecté.",
+      "emailLabel": "Adresse E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "emailHint": "Obligatoire si vous n'êtes pas connecté. Nous vous enverrons votre confirmation ici.",
+      "submitFree": "Confirmer l'Inscription Gratuite",
+      "submitPaid": "Continuer vers le Paiement",
+      "submittingFree": "Inscription en cours…",
+      "submittingPaid": "Redirection vers le paiement…",
+      "stripeNote": "Vous serez redirigé vers Stripe pour le traitement sécurisé du paiement.",
+      "successTitle": "Inscription Confirmée",
+      "successHeading": "Vous êtes inscrit !",
+      "successMessage": "Votre inscription à {title} est confirmée.",
+      "successEmailNote": "Vérifiez votre e-mail pour une confirmation. Nous avons hâte de vous voir.",
+      "viewEventDetails": "Voir les Détails de l'Événement",
+      "browseAllEvents": "Parcourir Tous les Événements"
+    }
+  },
+  "payments": {
+    "title": "Cotisations et Paiements",
+    "subtitle": "Payez vos frais de certification et vos cotisations",
+    "types": {
+      "enrollment_fee": "Frais d'Inscription",
+      "certification_fee": "Frais de Certification",
+      "membership_dues": "Cotisations",
+      "event_registration": "Inscription à un Événement"
+    },
+    "status": {
+      "pending": "En attente",
+      "processing": "En cours",
+      "succeeded": "Payé",
+      "failed": "Échoué",
+      "refunded": "Remboursé"
+    },
+    "checkout": {
+      "proceedToPayment": "Procéder au Paiement",
+      "processing": "Redirection vers le checkout...",
+      "secureNote": "Paiement sécurisé par Stripe",
+      "cancelUrl": "Annuler et revenir",
+      "successMessage": "Paiement réussi ! Merci.",
+      "cancelMessage": "Paiement annulé."
+    },
+    "history": {
+      "title": "Historique des Paiements",
+      "noPayments": "Aucun paiement trouvé.",
+      "date": "Date",
+      "amount": "Montant",
+      "type": "Type",
+      "status": "Statut",
+      "receipt": "Reçu"
+    }
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "chapters": "Chapitres",
+      "coaches": "Coaches",
+      "approvals": "Approbations",
+      "applications": "Candidatures",
+      "payments": "Paiements",
+      "users": "Utilisateurs"
+    },
+    "applications": {
+      "title": "Candidatures",
+      "noItems": "Aucune candidature en attente.",
+      "chapterRequests": {
+        "heading": "Demandes de Chapitre",
+        "country": "Pays",
+        "timezone": "Fuseau Horaire",
+        "currency": "Devise",
+        "requestedBy": "Demandé par",
+        "contact": "Contact"
+      },
+      "coachApplications": {
+        "heading": "Candidatures de Coach",
+        "email": "E-mail",
+        "credly": "Credly",
+        "chapter": "Chapitre",
+        "verified": "Vérifié ✓",
+        "unverified": "Non vérifié"
+      }
+    },
+    "chapters": {
+      "title": "Gérer les Chapitres",
+      "createNew": "Créer un Chapitre",
+      "editChapter": "Modifier le Chapitre",
+      "provisionPages": "Provisionner les Pages",
+      "noChapters": "Aucun chapitre pour le moment.",
+      "fields": {
+        "slug": "Slug",
+        "slugHint": "Lettres minuscules, chiffres et tirets uniquement.",
+        "name": "Nom du Chapitre",
+        "country": "Pays",
+        "countryCode": "Code Pays",
+        "countryCodeHint": "ISO 3166-1 alpha-2 (ex. US, NG, GB).",
+        "timezone": "Fuseau Horaire",
+        "currency": "Devise",
+        "accentColor": "Couleur d'Accent",
+        "accentColorPickerLabel": "Choisir la couleur d'accent",
+        "contactEmail": "E-mail de Contact",
+        "websiteUrl": "URL du Site Web",
+        "isActive": "Actif",
+        "isActiveLabel": "Actif (chapitre visible sur le site)"
+      },
+      "form": {
+        "ariaCreate": "Créer un chapitre",
+        "ariaEdit": "Modifier le chapitre",
+        "saveButton": "Enregistrer les Modifications",
+        "createButton": "Créer le Chapitre",
+        "saving": "Enregistrement…",
+        "creating": "Création…",
+        "cancel": "Annuler"
+      }
+    },
+    "approvals": {
+      "title": "Approbations de Contenu",
+      "noItems": "Aucun élément en attente d'approbation.",
+      "allCaughtUp": "Tout est à jour ! Aucune approbation en attente.",
+      "global": "Global",
+      "viewLive": "Voir en direct",
+      "proposedChanges": "Modifications proposées",
+      "approve": "Approuver",
+      "reject": "Rejeter",
+      "approving": "Approbation...",
+      "rejecting": "Rejet...",
+      "rejectionReason": "Motif du rejet",
+      "rejectionPlaceholder": "Expliquez pourquoi ce contenu a été rejeté...",
+      "approved": "Approuvé",
+      "rejected": "Rejeté",
+      "pendingCount": "{count, plural, one {# élément en attente de révision} other {# éléments en attente de révision}}"
+    }
+  },
+  "dashboard": {
+    "heading": "Mon Tableau de Bord",
+    "subtitle": "Gérez votre profil et votre activité WIAL",
+    "welcomeBack": "Bon retour",
+    "membership": {
+      "member": "Membre",
+      "noMembership": "Sans adhésion",
+      "expires": "expire le {date}"
+    },
+    "coachCta": {
+      "heading": "Devenez un Coach Certifié WIAL",
+      "description": "Vous avez votre badge Credly ? Postulez pour rejoindre notre répertoire de coaches certifiés.",
+      "applyButton": "Postuler Maintenant"
+    },
+    "coachApplicationPending": {
+      "heading": "Candidature de coach en attente",
+      "message": "Votre candidature est en cours d'examen. Vous serez notifié lorsqu'une décision sera prise."
+    },
+    "chapterRoles": {
+      "chapterAdmin": "Admin du Chapitre",
+      "contentEditor": "Éditeur de Contenu",
+      "manageButton": "Gérer le Chapitre"
+    },
+    "coachProfile": {
+      "heading": "Profil de Coach",
+      "certLevel": "Niveau de Certification",
+      "statusPublished": "Publié",
+      "statusUnpublished": "Non publié",
+      "statusVerified": "Vérifié",
+      "pendingReview": "Révision de l'administrateur requise pour publier votre profil.",
+      "manageProfile": "Gérer le profil",
+      "viewPublic": "Voir le profil public",
+      "noProfile": "Aucun profil de coach trouvé.",
+      "noProfileHint": "Les profils de coach sont créés par les administrateurs WIAL après la certification.",
+      "learnCertification": "En savoir plus sur la certification"
+    },
+    "chapterManagement": {
+      "heading": "Gestion du Chapitre",
+      "description": "Vous avez un accès de gestion de contenu pour votre chapitre.",
+      "viewSite": "Voir le site du chapitre",
+      "manageEvents": "Gérer les événements"
+    },
+    "quickActions": {
+      "heading": "Actions Rapides",
+      "myProfile": "Mon Profil",
+      "myProfileHint": "Modifiez votre profil de coach",
+      "coachDirectory": "Répertoire de Coaches",
+      "coachDirectoryHint": "Parcourir les coaches certifiés",
+      "upcomingEvents": "Événements à Venir",
+      "upcomingEventsHint": "Ateliers, webinaires et plus",
+      "accountSettings": "Paramètres du Compte",
+      "accountSettingsHint": "Gérez votre compte"
+    }
+  },
+  "content": {
+    "editMode": {
+      "toggle": "Mode Édition",
+      "on": "En cours d'édition",
+      "off": "Aperçu",
+      "unsavedChanges": "Modifications non enregistrées",
+      "exitConfirm": "Quitter le mode édition ? Les modifications non enregistrées seront perdues.",
+      "enterButton": "Mode Édition",
+      "exitButton": "Aperçu",
+      "ariaLabel": "Activer/désactiver le mode édition"
+    },
+    "blocks": {
+      "edit": "Modifier",
+      "moveUp": "Monter",
+      "moveDown": "Descendre",
+      "show": "Afficher la section",
+      "hide": "Masquer la section",
+      "hidden": "Masqué",
+      "save": "Enregistrer les modifications",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler",
+      "deleteBlock": "Supprimer le bloc",
+      "deleteConfirm": "Supprimer cette section ? Cette action est irréversible.",
+      "pendingApproval": "En attente d'approbation",
+      "requiresApproval": "Nécessite une approbation",
+      "instantPublish": "Publication instantanée",
+      "revert": "Rétablir la version publiée",
+      "revertConfirm": "Supprimer toutes les modifications de brouillon et rétablir la version publiée ?",
+      "noContent": "Aucun contenu pour le moment."
+    },
+    "editor": {
+      "saveSuccess": "Modifications enregistrées.",
+      "saveSuccessApproval": "Modifications soumises pour approbation.",
+      "saveError": "Échec de l'enregistrement. Veuillez réessayer.",
+      "reorderSuccess": "Ordre mis à jour.",
+      "reorderError": "Échec du réordonnancement des blocs.",
+      "visibilitySuccess": "Visibilité mise à jour.",
+      "visibilityError": "Échec de la mise à jour de la visibilité.",
+      "uploadSuccess": "Image téléchargée.",
+      "uploadError": "Échec du téléchargement.",
+      "uploadSizeError": "L'image doit faire moins de 2 Mo.",
+      "uploadTypeError": "Seuls les formats JPEG, PNG, WebP, AVIF et GIF sont autorisés.",
+      "imageAlt": "Décrivez l'image pour les lecteurs d'écran",
+      "richText": {
+        "bold": "Gras",
+        "italic": "Italique",
+        "heading2": "Titre 2",
+        "heading3": "Titre 3",
+        "bulletList": "Liste à puces",
+        "orderedList": "Liste numérotée",
+        "link": "Ajouter un lien",
+        "unlink": "Supprimer le lien"
+      }
+    },
+    "approvals": {
+      "diffTitle": "Modifications proposées",
+      "fieldsChanged": "{count, plural, one {# champ modifié} other {# champs modifiés}}",
+      "newBlock": "Nouveau bloc",
+      "showDiff": "Afficher les différences",
+      "hideDiff": "Masquer les différences",
+      "unchangedFields": "{count, plural, one {# champ inchangé masqué} other {# champs inchangés masqués}}",
+      "viewLive": "Voir la page en direct",
+      "requiresApprovalNote": "Ce type de bloc nécessite toujours une approbation avant d'être publié."
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite.",
+    "retry": "Réessayer",
+    "notFound": "Page introuvable",
+    "notFoundMessage": "La page que vous recherchez n'existe pas.",
+    "backHome": "Retour à l'accueil",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non",
+    "required": "Obligatoire",
+    "optional": "Optionnel",
+    "learnMore": "En savoir plus",
+    "readMore": "Lire la suite",
+    "seeAll": "Tout voir",
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "page": "Page {current} sur {total}"
+    }
+  },
+  "rbac": {
+    "roles": {
+      "super_admin": "Super Admin",
+      "chapter_lead": "Admin du Chapitre",
+      "content_editor": "Éditeur de Contenu",
+      "coach": "Coach",
+      "user": "Utilisateur"
+    },
+    "roleAssignment": {
+      "heading": "Rôle Global",
+      "globalRoleLabel": "Rôle global de l'utilisateur",
+      "updateButton": "Mettre à jour",
+      "updating": "Mise à jour…",
+      "successMessage": "Rôle mis à jour avec succès.",
+      "lastAdminError": "Impossible de rétrograder le dernier super admin actif.",
+      "selectRole": "Sélectionner un rôle"
+    },
+    "suspension": {
+      "heading": "Suspension du Compte",
+      "suspendButton": "Suspendre le Compte",
+      "unsuspendButton": "Réactiver le Compte",
+      "suspending": "Suspension…",
+      "unsuspending": "Réactivation…",
+      "confirmSuspend": "Confirmer la Suspension",
+      "cancelButton": "Annuler",
+      "reasonLabel": "Motif de la suspension",
+      "reasonPlaceholder": "Expliquez pourquoi ce compte est suspendu…",
+      "statusSuspended": "Compte suspendu",
+      "statusActive": "Actif",
+      "successSuspended": "Compte suspendu.",
+      "successUnsuspended": "Compte réactivé."
+    },
+    "roleSwitcher": {
+      "label": "Changer de contexte de chapitre",
+      "heading": "Vos Chapitres",
+      "manageButton": "Gérer"
+    }
+  },
+  "coachApplication": {
+    "title": "Postuler pour Devenir Coach",
+    "subtitle": "Soumettez votre candidature pour rejoindre le répertoire de coaches certifiés WIAL.",
+    "form": {
+      "chapterLabel": "Chapitre",
+      "chapterPlaceholder": "Sélectionnez un chapitre…",
+      "credlyUrlLabel": "URL du Badge Credly",
+      "credlyUrlHint": "L'URL de votre badge sur credly.com/badges/…",
+      "credlyUrlPlaceholder": "https://www.credly.com/badges/…",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Parlez-nous de votre expérience en coaching d'Action Learning…",
+      "submitButton": "Soumettre la Candidature",
+      "submitting": "Envoi en cours…"
+    },
+    "success": {
+      "heading": "Candidature soumise !",
+      "verifiedNote": "Votre badge Credly a été vérifié.",
+      "unverifiedNote": "Votre badge Credly n'a pas pu être vérifié automatiquement — un administrateur l'examinera manuellement."
+    },
+    "pending": {
+      "heading": "Candidature en Attente",
+      "message": "Vous avez déjà une candidature de coach en attente. Un admin du chapitre l'examinera prochainement."
+    },
+    "review": {
+      "approveButton": "Approuver",
+      "approving": "Approbation…",
+      "rejectButton": "Rejeter",
+      "confirmReject": "Confirmer le Rejet",
+      "rejecting": "Rejet…",
+      "cancelButton": "Annuler",
+      "notesLabel": "Motif du rejet",
+      "notesPlaceholder": "Expliquez pourquoi cette candidature est rejetée…",
+      "notesRequired": "Un motif est obligatoire lors du rejet d'une candidature."
+    }
+  },
+  "chapterRequest": {
+    "title": "Demander un Nouveau Chapitre",
+    "subtitle": "Proposez un nouveau chapitre régional WIAL. Un super admin examinera votre demande.",
+    "permissionRequired": {
+      "heading": "Permission Requise",
+      "message": "Seuls les Admins de Chapitre et les Super Admins peuvent demander de nouveaux chapitres."
+    },
+    "form": {
+      "nameLabel": "Nom du Chapitre",
+      "namePlaceholder": "ex. WIAL Nigéria",
+      "slugLabel": "Slug d'URL",
+      "slugHint": "Utilisé dans l'URL, ex. nigeria → wial.org/nigeria",
+      "slugPlaceholder": "ex. nigeria",
+      "countryCodeLabel": "Code Pays",
+      "timezoneLabel": "Fuseau Horaire",
+      "timezonePlaceholder": "Africa/Lagos",
+      "currencyLabel": "Devise",
+      "contactEmailLabel": "E-mail de Contact",
+      "contactEmailPlaceholder": "chapitre@wial.org",
+      "accentColorLabel": "Couleur d'Accent",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Décrivez votre chapitre proposé, sa région et vos plans…",
+      "submitButton": "Soumettre la Demande de Chapitre",
+      "submitting": "Envoi en cours…"
+    },
+    "success": {
+      "heading": "Demande soumise !",
+      "message": "Un super admin l'examinera prochainement."
+    },
+    "review": {
+      "approveButton": "Approuver",
+      "approving": "Approbation…",
+      "rejectButton": "Rejeter",
+      "confirmReject": "Confirmer le Rejet",
+      "rejecting": "Rejet…",
+      "cancelButton": "Annuler",
+      "notesLabel": "Motif du rejet",
+      "notesRequired": "Un motif est obligatoire lors du rejet d'une demande."
+    }
+  },
+  "chapterManage": {
+    "nav": {
+      "overview": "Vue d'Ensemble",
+      "users": "Membres",
+      "coaches": "Coaches",
+      "applications": "Candidatures",
+      "approvals": "Approbations",
+      "events": "Événements",
+      "payments": "Paiements",
+      "settings": "Paramètres",
+      "generate": "Générer du Contenu"
+    },
+    "payments": {
+      "heading": "Paiements",
+      "subtitle": "{count, plural, one {# enregistrement de paiement pour {chapter}} other {# enregistrements de paiement pour {chapter}}}",
+      "noPayments": "Aucun enregistrement de paiement pour le moment.",
+      "totalCollected": "Total Collecté",
+      "colUser": "Utilisateur",
+      "colType": "Type",
+      "colAmount": "Montant",
+      "colStatus": "Statut",
+      "colDate": "Date",
+      "colReceipt": "Reçu",
+      "receiptLink": "Voir",
+      "noReceipt": "—"
+    },
+    "overview": {
+      "heading": "Vue d'Ensemble du Chapitre",
+      "members": "Membres",
+      "coaches": "Coaches",
+      "pendingApplications": "Candidatures en Attente",
+      "pendingApprovals": "Approbations en Attente"
+    },
+    "users": {
+      "heading": "Membres",
+      "subtitle": "Gérez les rôles et le statut des comptes des membres du chapitre."
+    },
+    "coaches": {
+      "heading": "Coaches",
+      "subtitle": "Gérez les profils et la visibilité des coaches."
+    },
+    "applications": {
+      "heading": "Candidatures de Coach",
+      "subtitle": "Examinez les candidatures des coaches souhaitant rejoindre ce chapitre."
+    },
+    "approvals": {
+      "heading": "Approbations de Contenu",
+      "subtitle": "Examinez les modifications de contenu soumises par les éditeurs de ce chapitre."
+    },
+    "settings": {
+      "heading": "Paramètres du Chapitre",
+      "subtitle": "Mettez à jour les informations et la configuration du chapitre."
+    }
+  },
+  "suspended": {
+    "heading": "Compte Suspendu",
+    "message": "Votre compte a été suspendu et vous ne pouvez pas accéder à la plateforme pour le moment.",
+    "contactSupport": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter {email} pour obtenir de l'aide.",
+    "returnHome": "← Retour à la page d'accueil"
+  },
+  "validation": {
+    "slug": {
+      "pattern": "Le slug ne doit contenir que des lettres minuscules, des chiffres et des tirets"
+    },
+    "email": { "invalid": "Veuillez saisir une adresse e-mail valide" },
+    "password": {
+      "tooShort": "Le mot de passe doit comporter au moins 8 caractères",
+      "tooLong": "Le mot de passe doit comporter moins de 128 caractères",
+      "required": "Le mot de passe est obligatoire"
+    },
+    "hexColor": { "invalid": "Doit être une couleur hexadécimale valide (ex. #CC0000)" },
+    "url": { "invalid": "Doit être une URL valide" },
+    "currencyCode": { "invalid": "Doit être un code de devise ISO 4217 valide (ex. USD)" },
+    "countryCode": { "invalid": "Doit être un code pays à 2 lettres valide" },
+    "uuid": { "invalid": "Doit être un UUID valide" },
+    "amount": {
+      "notInt": "Le montant doit être un nombre entier",
+      "notPositive": "Le montant doit être positif"
+    },
+    "name": { "tooShort": "Le nom doit comporter au moins 2 caractères" },
+    "timezone": { "required": "Le fuseau horaire est obligatoire" },
+    "login": { "passwordRequired": "Le mot de passe est obligatoire" },
+    "register": { "nameRequired": "Le nom complet est obligatoire" },
+    "resetPassword": { "noMatch": "Les mots de passe ne correspondent pas" },
+    "coachProfile": {
+      "bioTooLong": "La biographie doit comporter moins de 2000 caractères",
+      "tooManySpecializations": "Maximum 20 spécialisations",
+      "languageRequired": "Au moins une langue est obligatoire"
+    },
+    "credly": {
+      "invalidUrl": "Doit être une URL de badge Credly valide (https://www.credly.com/badges/...)"
+    },
+    "coachApplication": { "messageTooLong": "Le message doit comporter moins de 1000 caractères" },
+    "suspension": {
+      "reasonRequired": "Le motif est obligatoire",
+      "reasonTooLong": "Le motif doit comporter moins de 500 caractères"
+    },
+    "event": {
+      "titleTooShort": "Le titre doit comporter au moins 3 caractères",
+      "startDateRequired": "La date de début est obligatoire",
+      "invalidDate": "Doit être une date/heure valide",
+      "priceTooLow": "Le prix doit être d'au moins 0,50 $",
+      "endBeforeStart": "La date de fin doit être égale ou postérieure à la date de début"
+    },
+    "eventRegistration": { "nameRequired": "Le nom est obligatoire" },
+    "contact": {
+      "nameRequired": "Le nom est obligatoire",
+      "messageRequired": "Le message est obligatoire"
+    }
+  },
+  "resources": {
+    "title": "Ressources",
+    "subtitle": "Vidéos, articles, PDFs et outils pour les praticiens d'Action Learning.",
+    "manageResources": "Gérer les Ressources",
+    "addResource": "Ajouter une Ressource",
+    "noResources": {
+      "heading": "Aucune ressource pour le moment",
+      "body": "Revenez bientôt pour des vidéos, des articles et des guides pour praticiens.",
+      "adminHint": "Ajoutez votre première ressource en utilisant le bouton ci-dessus."
+    },
+    "manage": {
+      "title": "Gérer les Ressources",
+      "published": "Publié",
+      "draft": "Brouillon",
+      "backToResources": "← Retour aux Ressources"
+    },
+    "form": {
+      "createTitle": "Ajouter une Ressource",
+      "editTitle": "Modifier la Ressource",
+      "titleLabel": "Titre",
+      "titlePlaceholder": "ex. Introduction à l'Action Learning",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Brève description de cette ressource…",
+      "typeLabel": "Type",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://…",
+      "urlHintVideo": "Collez une URL YouTube pour générer automatiquement une miniature.",
+      "urlHintPdf": "Téléchargez un PDF via l'API d'upload de fichiers, puis collez l'URL résultante.",
+      "urlHintOther": "Collez l'URL complète de l'article ou de la page.",
+      "thumbnailLabel": "URL de la Miniature",
+      "thumbnailPlaceholder": "https://… (optionnel — dérivé automatiquement pour les liens YouTube)",
+      "categoryLabel": "Catégorie",
+      "categoryPlaceholder": "ex. Leadership, Recherche, Outils",
+      "isPublishedLabel": "Publié (visible sur le site public)",
+      "saveButton": "Enregistrer la Ressource",
+      "createButton": "Ajouter la Ressource",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler"
+    },
+    "types": {
+      "video": "Vidéo",
+      "article": "Article",
+      "pdf": "PDF",
+      "link": "Lien"
+    },
+    "filters": {
+      "all": "Tous",
+      "filterByType": "Filtrer par type"
+    },
+    "card": {
+      "watch": "Regarder",
+      "read": "Lire",
+      "download": "Télécharger",
+      "visit": "Visiter",
+      "externalLink": "S'ouvre dans un nouvel onglet"
+    },
+    "search": {
+      "placeholder": "Rechercher des ressources…"
+    },
+    "scope": {
+      "all": "Toutes les Ressources"
+    },
+    "completion": {
+      "completed": "Terminé"
+    },
+    "certification": {
+      "sectionTitle": "Progression de la Certification",
+      "noRequirements": "Aucune exigence définie pour le moment",
+      "apply": "Demander la Certification {level}",
+      "applySuccess": "Candidature soumise pour examen",
+      "alreadyCertified": "Déjà certifié",
+      "pending": "En attente d'approbation",
+      "approved": "Certifié",
+      "expired": "Expiré",
+      "revoked": "Révoqué",
+      "expiresOn": "Expire le {date}",
+      "progress": "{completed} sur {total} ressources obligatoires complétées",
+      "browseResources": "Parcourir les Ressources"
+    }
+  },
+  "a11y": {
+    "openMenu": "Ouvrir le menu de navigation",
+    "closeMenu": "Fermer le menu de navigation",
+    "openUserMenu": "Ouvrir le menu utilisateur",
+    "toggleEditMode": "Activer/désactiver le mode édition",
+    "coachPhoto": "Photo de profil de {name}",
+    "chapterLogo": "Logo du chapitre {chapter}",
+    "externalLink": "S'ouvre dans un nouvel onglet",
+    "editBlock": "Modifier le bloc {type}",
+    "closeEditor": "Fermer l'éditeur",
+    "moveBlockUp": "Déplacer le bloc vers le haut",
+    "moveBlockDown": "Déplacer le bloc vers le bas",
+    "toggleBlockVisibility": "Activer/désactiver la visibilité du bloc",
+    "blockHidden": "Ce bloc est masqué sur le site public",
+    "blockPendingApproval": "Ce bloc a des modifications en attente d'approbation de l'admin",
+    "uploadImage": "Télécharger une image",
+    "removeImage": "Supprimer l'image",
+    "editorToolbar": "Barre d'outils de mise en forme du texte"
+  },
+  "profile": {
+    "registeredEvents": {
+      "title": "Mes Événements Inscrits",
+      "subtitle": "Événements auxquels vous vous êtes inscrit.",
+      "empty": "Vous ne vous êtes inscrit à aucun événement pour le moment.",
+      "browse": "Parcourir les prochains événements →",
+      "listLabel": "Événements inscrits",
+      "confirmed": "Confirmé",
+      "pending": "En attente"
+    }
+  },
+  "chapterInABox": {
+    "pageTitle": "Générer le Contenu de la Page d'Accueil",
+    "pageSubtitle": "L'IA rédige des blocs de contenu pour la page d'accueil de votre chapitre. Tout le contenu est sauvegardé pour approbation avant d'être mis en ligne.",
+    "approvalNote": "Les blocs générés seront en attente d'approbation — examinez-les dans l'onglet Approbations.",
+    "languageLabel": "Langue du Contenu",
+    "languages": {
+      "en": "Anglais",
+      "pt-BR": "Portugais (Brésil)",
+      "es": "Espagnol",
+      "fr": "Français",
+      "ar": "Arabe",
+      "de": "Allemand",
+      "ja": "Japonais"
+    },
+    "culturalContextLabel": "Contexte Culturel (optionnel)",
+    "culturalContextPlaceholder": "ex. La culture d'entreprise brésilienne valorise la construction de relations et la chaleur humaine...",
+    "coachesHeading": "Profils de Coach (1–3)",
+    "coachesSubtitle": "Fournissez au moins un coach à mettre en avant sur la page d'accueil.",
+    "coachNameLabel": "Nom Complet",
+    "coachTitleLabel": "Titre (optionnel)",
+    "coachBioLabel": "Courte Biographie",
+    "coachPhotoLabel": "Photo (optionnel)",
+    "addCoach": "Ajouter un Autre Coach",
+    "removeCoach": "Supprimer",
+    "eventHeading": "Prochain Événement (optionnel)",
+    "eventTitleLabel": "Titre de l'Événement",
+    "eventDateLabel": "Date",
+    "eventDescLabel": "Description",
+    "testimonialHeading": "Témoignage",
+    "testimonialSubtitle": "Une citation de quelqu'un qui a bénéficié de l'Action Learning.",
+    "testimonialQuoteLabel": "Citation",
+    "testimonialAuthorLabel": "Nom de l'Auteur",
+    "testimonialTitleLabel": "Titre de l'Auteur (optionnel)",
+    "testimonialOrgLabel": "Organisation (optionnel)",
+    "testimonialPhotoLabel": "Photo (optionnel)",
+    "heroImageLabel": "Image de Bannière Principale (optionnel)",
+    "uploadButton": "Télécharger une Photo",
+    "uploading": "Téléchargement…",
+    "photoUploaded": "Photo téléchargée",
+    "uploadError": "Échec du téléchargement. Veuillez réessayer.",
+    "generateButton": "Générer le Contenu",
+    "generateButtonWithMusic": "Générer le Contenu + Musique",
+    "generating": "Génération… (jusqu'à 30 secondes)",
+    "generatingMusic": "Génération de la musique de fond…",
+    "successMessage": "{count} blocs de contenu générés. Examinez-les dans l'onglet Approbations.",
+    "musicSuccess": "Musique de fond générée et sauvegardée.",
+    "musicError": "Échec de la génération de la musique",
+    "skipLink": "Passer pour l'instant",
+    "backToChapter": "Retour au Chapitre",
+    "optional": "Optionnel",
+    "musicHeading": "Musique de Fond",
+    "musicSubtitle": "Générez un court clip sonore ambiant qui se joue en boucle en arrière-plan du site de votre chapitre.",
+    "musicToggleLabel": "Générer également une musique de fond",
+    "musicPromptLabel": "Décrivez l'ambiance musicale",
+    "musicPromptPlaceholder": "ex. Piano ambiant professionnel et calme, chaleureux et minimaliste — adapté à une organisation de coaching",
+    "musicPromptHint": "Décrivez l'humeur, les instruments et le tempo. ElevenLabs génère un clip de 20 secondes qui se joue en boucle continue.",
+    "musicPromptRequired": "Veuillez décrire l'ambiance musicale avant de soumettre."
+  }
+}

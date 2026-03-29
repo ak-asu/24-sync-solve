@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, getLocale } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
 import { GLOBAL_NAV_LINKS, CHAPTER_NAV_LINKS } from '@/lib/utils/constants'
 import { getGlobalSettings } from '@/features/settings/queries/getSettings'
@@ -9,6 +9,7 @@ import { MobileNav } from '@/components/layout/MobileNav'
 import { UserMenu } from '@/components/layout/UserMenu'
 import { RoleSwitcher } from '@/components/layout/RoleSwitcher'
 import { InlineEditableText } from '@/components/editor/InlineEditableText'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import type { AuthUser, UserRole } from '@/types'
 
 interface HeaderProps {
@@ -25,7 +26,7 @@ export async function Header({
   chapterName,
   isSuperAdmin = false,
 }: HeaderProps) {
-  const t = await getTranslations('nav')
+  const [t, locale] = await Promise.all([getTranslations('nav'), getLocale()])
 
   const supabase = await createClient()
   const {
@@ -169,8 +170,11 @@ export async function Header({
           {managedChapters.length > 0 && <RoleSwitcher chapters={managedChapters} />}
         </nav>
 
-        {/* Right side: auth + mobile menu */}
+        {/* Right side: language switcher + auth + mobile menu */}
         <div className="flex items-center gap-3">
+          {/* Language switcher */}
+          <LanguageSwitcher currentLocale={locale} label={t('selectLanguage')} />
+
           {/* Chapter accent bar */}
           {accentColor && (
             <div
