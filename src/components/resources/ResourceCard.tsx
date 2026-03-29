@@ -96,7 +96,7 @@ export function ResourceCard({ resource, isCompleted, canGenerateAI = false }: R
       {/* Body */}
       <div className="flex flex-1 flex-col gap-2 p-4">
         {resource.category && (
-          <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">
+          <p className="text-xs font-medium tracking-wide text-gray-600 uppercase">
             {resource.category}
           </p>
         )}

@@ -33,7 +33,7 @@ export async function Footer({ isSuperAdmin = false }: FooterProps) {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block">
               <span className="text-2xl font-extrabold text-white">WIAL</span>
-              <span className="mt-1 block text-xs font-semibold tracking-widest text-white/60 uppercase">
+              <span className="mt-1 block text-xs font-semibold tracking-widest text-white/70 uppercase">
                 World Institute for Action Learning
               </span>
             </Link>
@@ -50,7 +50,7 @@ export async function Footer({ isSuperAdmin = false }: FooterProps) {
 
           {/* Quick links */}
           <div>
-            <h2 className="text-sm font-semibold tracking-wider text-white/50 uppercase">
+            <h2 className="text-sm font-semibold tracking-wider text-white/70 uppercase">
               {t('footer.links.heading')}
             </h2>
             <ul className="mt-4 space-y-2" role="list">
@@ -70,7 +70,7 @@ export async function Footer({ isSuperAdmin = false }: FooterProps) {
           {/* Chapters */}
           {chapters && chapters.length > 0 && (
             <div>
-              <h2 className="text-sm font-semibold tracking-wider text-white/50 uppercase">
+              <h2 className="text-sm font-semibold tracking-wider text-white/70 uppercase">
                 {t('footer.chapters.heading')}
               </h2>
               <ul className="mt-4 space-y-2" role="list">
@@ -91,14 +91,14 @@ export async function Footer({ isSuperAdmin = false }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
-          <p className="text-xs text-white/50">
+          <p className="text-xs text-white/70">
             {t('footer.legal.copyright', { year: currentYear })}
           </p>
           <div className="flex gap-4">
-            <Link href="/privacy" className="text-xs text-white/50 hover:text-white/70">
+            <Link href="/privacy" className="text-xs text-white/70 hover:text-white">
               {t('footer.legal.privacy')}
             </Link>
-            <Link href="/terms" className="text-xs text-white/50 hover:text-white/70">
+            <Link href="/terms" className="text-xs text-white/70 hover:text-white">
               {t('footer.legal.terms')}
             </Link>
           </div>
