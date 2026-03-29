@@ -25,7 +25,7 @@ export async function smartMatchCoaches(query: string): Promise<SmartMatchResult
 
   // Step 1: Parse the user query into structured filters and a semantic search term
   const { object: parsedQuery } = await generateObject({
-    model: openai('gpt-4o-mini'),
+    model: openai('gpt-4o-mini', { structuredOutputs: false }),
     schema: z.object({
       country: z
         .string()
