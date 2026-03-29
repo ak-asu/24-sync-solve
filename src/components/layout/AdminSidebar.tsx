@@ -64,7 +64,7 @@ export function AdminSidebar({ pendingApprovals = 0, pendingApplications = 0 }: 
           aria-label="WIAL — Go to home page"
         >
           <span className="text-lg font-extrabold text-white">WIAL</span>
-          <span className="text-xs font-semibold tracking-widest text-white/50 uppercase">
+          <span className="text-xs font-semibold tracking-widest text-white/70 uppercase">
             Admin
           </span>
         </Link>
@@ -102,7 +102,7 @@ export function AdminSidebar({ pendingApprovals = 0, pendingApplications = 0 }: 
       <div className="border-wial-navy-dark border-t p-3">
         <Link
           href="/"
-          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
         >
           <ExternalLink size={16} aria-hidden="true" />
           Back to Site
