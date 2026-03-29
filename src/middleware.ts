@@ -8,6 +8,7 @@ import type { Database } from '@/types/database'
 const RESERVED_PATHS = new Set([
   'admin',
   'api',
+  'dashboard',
   '_next',
   'favicon.ico',
   'robots.txt',
@@ -33,7 +34,17 @@ export async function middleware(request: NextRequest) {
   const { response: updatedResponse, user } = await updateSession(request, response)
   response = updatedResponse
 
-  // ── 3. Protect /admin/* routes ──────────────────────────────────────────────
+  // ── 3. Protect /dashboard/* routes ──────────────────────────────────────────
+  if (pathname.startsWith('/dashboard')) {
+    if (!user) {
+      const loginUrl = new URL('/login', request.url)
+      loginUrl.searchParams.set('redirect', pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+    // Role-specific sub-routing (e.g. super_admin → /admin) is handled in the page
+  }
+
+  // ── 4. Protect /admin/* routes ──────────────────────────────────────────────
   if (pathname.startsWith('/admin')) {
     if (!user) {
       const loginUrl = new URL('/login', request.url)
@@ -68,7 +79,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // ── 4. Protect /[chapter]/edit/* routes ─────────────────────────────────────
+  // ── 5. Protect /[chapter]/edit/* routes ─────────────────────────────────────
   const editMatch = pathname.match(/^\/([^/]+)\/edit/)
   if (editMatch) {
     if (!user) {
@@ -79,7 +90,7 @@ export async function middleware(request: NextRequest) {
     // Role check for chapter editing is handled in server actions (RLS covers DB)
   }
 
-  // ── 5. Validate chapter slugs for /[chapter]/* routes ───────────────────────
+  // ── 6. Validate chapter slugs for /[chapter]/* routes ───────────────────────
   const segments = pathname.split('/').filter(Boolean)
   const firstSegment = segments[0]
 

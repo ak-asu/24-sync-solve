@@ -259,6 +259,41 @@
       "pendingCount": "{count} items pending"
     }
   },
+  "dashboard": {
+    "heading": "My Dashboard",
+    "subtitle": "Manage your WIAL profile and activity",
+    "welcomeBack": "Welcome back",
+    "coachProfile": {
+      "heading": "Coach Profile",
+      "certLevel": "Certification Level",
+      "statusPublished": "Published",
+      "statusUnpublished": "Not published",
+      "statusVerified": "Verified",
+      "pendingReview": "Admin review required to publish your profile.",
+      "manageProfile": "Manage profile",
+      "viewPublic": "View public profile",
+      "noProfile": "No coach profile found.",
+      "noProfileHint": "Coach profiles are created by WIAL administrators after certification.",
+      "learnCertification": "Learn about certification"
+    },
+    "chapterManagement": {
+      "heading": "Chapter Management",
+      "description": "You have content management access for your chapter.",
+      "viewSite": "View chapter site",
+      "manageEvents": "Manage events"
+    },
+    "quickActions": {
+      "heading": "Quick Actions",
+      "myProfile": "My Profile",
+      "myProfileHint": "Edit your coach profile",
+      "coachDirectory": "Coach Directory",
+      "coachDirectoryHint": "Browse certified coaches",
+      "upcomingEvents": "Upcoming Events",
+      "upcomingEventsHint": "Workshops, webinars, and more",
+      "accountSettings": "Account Settings",
+      "accountSettingsHint": "Manage your account"
+    }
+  },
   "content": {
     "editMode": {
       "toggle": "Edit Mode",

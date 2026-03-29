@@ -45,7 +45,7 @@ export function UserMenu({ user }: UserMenuProps) {
   }
 
   const dashboardHref =
-    user.role === 'super_admin' ? '/admin' : user.role === 'coach' ? '/coaches/profile' : '/'
+    user.role === 'super_admin' ? '/admin' : user.role === 'public' ? '/' : '/dashboard'
 
   return (
     <div className="relative" ref={menuRef}>

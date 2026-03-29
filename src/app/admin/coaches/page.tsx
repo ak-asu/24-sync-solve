@@ -59,7 +59,7 @@ export default async function AdminCoachesPage() {
                   Certified
                 </th>
                 <th scope="col" className="px-4 py-3 text-end font-semibold text-gray-700">
-                  Profile
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -115,18 +115,25 @@ export default async function AdminCoachesPage() {
                       {coach.certification_date ? formatDate(coach.certification_date) : '—'}
                     </td>
                     <td className="px-4 py-3 text-end">
-                      {coach.is_published ? (
+                      <div className="flex items-center justify-end gap-3">
                         <Link
-                          href={`/coaches/${coach.id}`}
-                          target="_blank"
-                          className="text-xs text-blue-600 hover:underline"
-                          aria-label={`View public profile for ${name}`}
+                          href={`/admin/coaches/${coach.id}`}
+                          className="text-xs font-medium text-blue-600 hover:underline"
+                          aria-label={`Review ${name}'s profile`}
                         >
-                          View ↗
+                          Review
                         </Link>
-                      ) : (
-                        <span className="text-xs text-gray-300">—</span>
-                      )}
+                        {coach.is_published && (
+                          <Link
+                            href={`/coaches/${coach.id}`}
+                            target="_blank"
+                            className="text-xs text-gray-400 hover:text-gray-600 hover:underline"
+                            aria-label={`View public profile for ${name} (opens in new tab)`}
+                          >
+                            View ↗
+                          </Link>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 )

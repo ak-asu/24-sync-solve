@@ -71,6 +71,39 @@ export async function getCoachById(
 }
 
 /**
+ * Fetch any coach profile by ID for admin review, regardless of published status.
+ * The admin layout is responsible for verifying super_admin access before calling this.
+ */
+export async function getCoachByIdAdmin(
+  supabase: SupabaseClient<Database>,
+  coachId: string
+): Promise<CoachFullProfile | null> {
+  const { data, error } = await supabase
+    .from('coach_profiles')
+    .select(
+      `
+      *,
+      profile:profiles!coach_profiles_user_id_fkey (
+        full_name,
+        email,
+        avatar_url
+      ),
+      chapter:chapters!coach_profiles_chapter_id_fkey (
+        id,
+        name,
+        slug,
+        accent_color
+      )
+    `
+    )
+    .eq('id', coachId)
+    .single()
+
+  if (error || !data) return null
+  return data as unknown as CoachFullProfile
+}
+
+/**
  * Fetch a coach profile by user_id (for the coach's own profile management).
  * Does NOT filter by is_published — coaches can see their own unpublished profile.
  */
