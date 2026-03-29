@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useTransition } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Button, Input, Label } from '@heroui/react'
 import { registerForEventAction } from '@/features/events/actions/registerForEvent'
 import type { ActionResult } from '@/types'
 
@@ -32,53 +32,63 @@ export function EventRegistrationForm({ eventId, isFree }: EventRegistrationForm
         </div>
       )}
 
-      {/* Guest info — only shown for unauthenticated flow hint */}
-      <div>
-        <label htmlFor="reg-name" className="block text-sm font-medium text-gray-700">
+      <div className="flex flex-col gap-1">
+        <Label id="reg-name-label" htmlFor="reg-name">
           Full Name
-        </label>
-        <input
+        </Label>
+        <p className="text-xs text-gray-500">
+          Used for your registration confirmation. Leave blank if logged in.
+        </p>
+        <Input
           id="reg-name"
+          aria-labelledby="reg-name-label"
           name="guest_name"
           type="text"
           autoComplete="name"
-          className="focus:border-wial-navy focus:ring-wial-navy/20 mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:outline-none"
           placeholder="Jane Doe"
+          aria-invalid={
+            !!(state && !state.success && state.fieldErrors?.['guest_name']) || undefined
+          }
         />
-        <p className="mt-1 text-xs text-gray-500">
-          Used for your registration confirmation. Leave blank if logged in.
-        </p>
         {state && !state.success && state.fieldErrors?.['guest_name'] && (
-          <p className="mt-1 text-xs text-red-600">{state.fieldErrors['guest_name'][0]}</p>
+          <p className="text-xs text-red-600" role="alert">
+            {state.fieldErrors['guest_name'][0]}
+          </p>
         )}
       </div>
 
-      <div>
-        <label htmlFor="reg-email" className="block text-sm font-medium text-gray-700">
+      <div className="flex flex-col gap-1">
+        <Label id="reg-email-label" htmlFor="reg-email">
           Email Address
-        </label>
-        <input
+        </Label>
+        <p className="text-xs text-gray-500">
+          Required if you are not logged in. We'll send your confirmation here.
+        </p>
+        <Input
           id="reg-email"
+          aria-labelledby="reg-email-label"
           name="guest_email"
           type="email"
           autoComplete="email"
-          className="focus:border-wial-navy focus:ring-wial-navy/20 mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:outline-none"
           placeholder="you@example.com"
+          aria-invalid={
+            !!(state && !state.success && state.fieldErrors?.['guest_email']) || undefined
+          }
         />
-        <p className="mt-1 text-xs text-gray-500">
-          Required if you are not logged in. We&apos;ll send your confirmation here.
-        </p>
         {state && !state.success && state.fieldErrors?.['guest_email'] && (
-          <p className="mt-1 text-xs text-red-600">{state.fieldErrors['guest_email'][0]}</p>
+          <p className="text-xs text-red-600" role="alert">
+            {state.fieldErrors['guest_email'][0]}
+          </p>
         )}
       </div>
 
-      <button
+      <Button
         type="submit"
-        disabled={isPending}
-        className="bg-wial-navy hover:bg-wial-navy-light inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+        isDisabled={isPending}
+        isPending={isPending}
+        fullWidth
+        className="bg-wial-navy hover:bg-wial-navy-light rounded-xl px-6 text-sm font-semibold text-white shadow-sm"
       >
-        {isPending && <Loader2 size={15} className="animate-spin" aria-hidden="true" />}
         {isPending
           ? isFree
             ? 'Registering…'
@@ -86,7 +96,7 @@ export function EventRegistrationForm({ eventId, isFree }: EventRegistrationForm
           : isFree
             ? 'Confirm Free Registration'
             : 'Continue to Payment'}
-      </button>
+      </Button>
 
       {!isFree && (
         <p className="text-center text-xs text-gray-500">

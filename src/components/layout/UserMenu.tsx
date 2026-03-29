@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { User, LogOut, LayoutDashboard, Award } from 'lucide-react'
+import { Button } from '@heroui/react'
 import { logoutAction } from '@/features/auth/actions/login'
 import type { AuthUser } from '@/types'
 
@@ -36,7 +37,7 @@ export function UserMenu({ user }: UserMenuProps) {
         </Link>
         <Link
           href="/register"
-          className="bg-wial-red hover:bg-wial-red-dark rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
+          className="bg-wial-red hover:bg-wial-red-dark rounded-lg px-4 py-2 text-sm font-semibold text-white"
         >
           Get Started
         </Link>
@@ -48,13 +49,15 @@ export function UserMenu({ user }: UserMenuProps) {
 
   return (
     <div className="relative" ref={menuRef}>
-      <button
+      <Button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="hover:bg-wial-navy-light flex items-center gap-2 rounded-full p-1 text-white focus:ring-2 focus:ring-white focus:outline-none"
+        isIconOnly
+        onPress={() => setIsOpen(!isOpen)}
+        className="hover:bg-wial-navy-light flex items-center gap-2 rounded-full p-1 text-white"
         aria-label="Open user menu"
         aria-expanded={isOpen}
         aria-haspopup="true"
+        variant="ghost"
       >
         {user.avatarUrl ? (
           <Image
@@ -69,12 +72,12 @@ export function UserMenu({ user }: UserMenuProps) {
             {(user.fullName ?? user.email)[0]?.toUpperCase()}
           </span>
         )}
-      </button>
+      </Button>
 
       {isOpen && (
         <div
           role="menu"
-          className="absolute end-0 top-full z-50 mt-2 w-56 rounded-xl border border-gray-200 bg-white shadow-lg"
+          className="absolute inset-e-0 top-full z-50 mt-2 w-56 rounded-xl border border-gray-200 bg-white shadow-lg"
           aria-label="User menu"
         >
           <div className="border-b border-gray-100 px-4 py-3">
@@ -120,14 +123,15 @@ export function UserMenu({ user }: UserMenuProps) {
 
           <div className="border-t border-gray-100 py-1">
             <form action={logoutAction}>
-              <button
+              <Button
                 type="submit"
-                role="menuitem"
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                variant="ghost"
+                fullWidth
+                className="justify-start rounded-none px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
               >
                 <LogOut size={16} aria-hidden="true" />
                 Log Out
-              </button>
+              </Button>
             </form>
           </div>
         </div>

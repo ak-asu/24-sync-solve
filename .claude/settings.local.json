@@ -34,7 +34,8 @@
       "Bash(grep \"\\\\.sql$\")",
       "Bash(npx eslint:*)",
       "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -type d -name *profile* -o -type d -name *dashboard*)",
-      "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -type f \\\\\\(-name *profile* -o -name *dashboard* \\\\\\))"
+      "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -type f \\\\\\(-name *profile* -o -name *dashboard* \\\\\\))",
+      "Bash(node -e \":*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\presyze\\Projects\\ASU\\ohack\\src\\app\\[chapter]\\manage",

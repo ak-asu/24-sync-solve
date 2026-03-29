@@ -1,6 +1,7 @@
 'use client'
 
 import { useActionState } from 'react'
+import { Button, ListBox, ListBoxItem, Select } from '@heroui/react'
 import { assignRoleAction } from '@/features/rbac/actions/roleManagement'
 import { ROLE_LABELS } from '@/lib/utils/constants'
 import type { ActionResult, UserRole } from '@/types'
@@ -45,53 +46,58 @@ export function AddChapterRoleForm({
     <form action={formAction} className="mt-2 flex flex-wrap items-center gap-2">
       <input type="hidden" name="user_id" value={userId} />
 
-      <label htmlFor={`new-chapter-${userId}`} className="sr-only">
-        Chapter
-      </label>
-      <select
-        id={`new-chapter-${userId}`}
-        name="chapter_id"
-        defaultValue=""
-        className="rounded-lg border border-gray-300 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-        required
-      >
-        <option value="" disabled>
-          Chapter…
-        </option>
-        {available.map((c) => (
-          <option key={c.id} value={c.id}>
-            {c.name}
-          </option>
-        ))}
-      </select>
+      <div>
+        <label htmlFor={`new-chapter-${userId}-trigger`} className="sr-only">
+          Chapter
+        </label>
+        <Select name="chapter_id" isRequired className="min-w-36">
+          <Select.Trigger id={`new-chapter-${userId}-trigger`}>
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox aria-label="Chapter">
+              {available.map((c) => (
+                <ListBoxItem key={c.id} id={c.id}>
+                  {c.name}
+                </ListBoxItem>
+              ))}
+            </ListBox>
+          </Select.Popover>
+        </Select>
+      </div>
 
-      <label htmlFor={`new-role-${userId}`} className="sr-only">
-        Role
-      </label>
-      <select
-        id={`new-role-${userId}`}
-        name="role"
-        defaultValue=""
-        className="rounded-lg border border-gray-300 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-        required
-      >
-        <option value="" disabled>
-          Role…
-        </option>
-        {assignableRoles.map((r) => (
-          <option key={r} value={r}>
-            {ROLE_LABELS[r] ?? r}
-          </option>
-        ))}
-      </select>
+      <div>
+        <label htmlFor={`new-role-${userId}-trigger`} className="sr-only">
+          Role
+        </label>
+        <Select name="role" isRequired className="min-w-32">
+          <Select.Trigger id={`new-role-${userId}-trigger`}>
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox aria-label="Role">
+              {assignableRoles.map((r) => (
+                <ListBoxItem key={r} id={r}>
+                  {ROLE_LABELS[r] ?? r}
+                </ListBoxItem>
+              ))}
+            </ListBox>
+          </Select.Popover>
+        </Select>
+      </div>
 
-      <button
+      <Button
         type="submit"
-        disabled={isPending}
-        className="rounded-lg bg-green-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-green-700 disabled:opacity-50"
+        isDisabled={isPending}
+        isPending={isPending}
+        size="sm"
+        variant="primary"
+        className="rounded-lg text-xs font-semibold text-white"
       >
         {isPending ? '…' : '+ Assign'}
-      </button>
+      </Button>
 
       {state && !state.success && (
         <span className="text-xs text-red-600" role="alert">
