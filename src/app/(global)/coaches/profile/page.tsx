@@ -51,7 +51,7 @@ export default async function CoachesProfilePage() {
                 administrators after certification.
               </p>
               <Link
-                href="/certification"
+                href="/about"
                 className="bg-wial-red hover:bg-wial-red-dark mt-6 inline-block rounded-xl px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors"
               >
                 Learn About Certification

@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               scriptSrc,
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://*.supabase.co https://*.supabase.in",
+              "img-src 'self' data: blob: https://*.supabase.co https://*.supabase.in https://img.youtube.com",
               "font-src 'self'",
               "connect-src 'self' https://*.supabase.co https://*.supabase.in https://api.stripe.com wss://*.supabase.co",
               'frame-src https://js.stripe.com https://hooks.stripe.com',
@@ -57,6 +57,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '*.supabase.in',
         pathname: '/storage/v1/object/public/**',
+      },
+      {
+        // YouTube video thumbnails (auto-derived from video URLs)
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/vi/**',
       },
     ],
     deviceSizes: [640, 750, 828, 1080, 1200],

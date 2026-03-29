@@ -2,7 +2,6 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "certification": "Certification",
     "coaches": "Find a Coach",
     "resources": "Resources",
     "events": "Events",
@@ -791,6 +790,86 @@
     "contact": {
       "nameRequired": "Name is required",
       "messageRequired": "Message is required"
+    }
+  },
+  "resources": {
+    "title": "Resources",
+    "subtitle": "Videos, articles, PDFs, and tools for Action Learning practitioners.",
+    "manageResources": "Manage Resources",
+    "addResource": "Add Resource",
+    "noResources": {
+      "heading": "No resources yet",
+      "body": "Check back soon for videos, articles, and practitioner guides.",
+      "adminHint": "Add your first resource using the button above."
+    },
+    "manage": {
+      "title": "Manage Resources",
+      "published": "Published",
+      "draft": "Draft",
+      "backToResources": "← Back to Resources"
+    },
+    "form": {
+      "createTitle": "Add Resource",
+      "editTitle": "Edit Resource",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Introduction to Action Learning",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Brief description of this resource…",
+      "typeLabel": "Type",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://…",
+      "urlHintVideo": "Paste a YouTube URL to auto-generate a thumbnail.",
+      "urlHintPdf": "Upload a PDF via the file upload API, then paste the resulting URL.",
+      "urlHintOther": "Paste the full URL of the article or page.",
+      "thumbnailLabel": "Thumbnail URL",
+      "thumbnailPlaceholder": "https://… (optional — auto-derived for YouTube links)",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "e.g. Leadership, Research, Tools",
+      "isPublishedLabel": "Published (visible on public site)",
+      "saveButton": "Save Resource",
+      "createButton": "Add Resource",
+      "saving": "Saving…",
+      "cancel": "Cancel"
+    },
+    "types": {
+      "video": "Video",
+      "article": "Article",
+      "pdf": "PDF",
+      "link": "Link"
+    },
+    "filters": {
+      "all": "All",
+      "filterByType": "Filter by type"
+    },
+    "card": {
+      "watch": "Watch",
+      "read": "Read",
+      "download": "Download",
+      "visit": "Visit",
+      "externalLink": "Opens in new tab"
+    },
+    "search": {
+      "placeholder": "Search resources…"
+    },
+    "scope": {
+      "all": "All Resources"
+    },
+    "completion": {
+      "completed": "Completed"
+    },
+    "certification": {
+      "sectionTitle": "Certification Progress",
+      "noRequirements": "No requirements defined yet",
+      "apply": "Apply for {level} Certification",
+      "applySuccess": "Application submitted for review",
+      "alreadyCertified": "Already certified",
+      "pending": "Pending approval",
+      "approved": "Certified",
+      "expired": "Expired",
+      "revoked": "Revoked",
+      "expiresOn": "Expires {date}",
+      "progress": "{completed} of {total} required resources completed",
+      "browseResources": "Browse Resources"
     }
   },
   "a11y": {

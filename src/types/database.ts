@@ -634,6 +634,168 @@ export interface Database {
           },
         ]
       }
+      resources: {
+        Row: {
+          id: string
+          chapter_id: string | null
+          title: string
+          description: string | null
+          type: 'video' | 'article' | 'pdf' | 'link'
+          url: string
+          thumbnail_url: string | null
+          category: string | null
+          tags: string[]
+          is_published: boolean
+          sort_order: number
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          chapter_id?: string | null
+          title: string
+          description?: string | null
+          type: 'video' | 'article' | 'pdf' | 'link'
+          url: string
+          thumbnail_url?: string | null
+          category?: string | null
+          tags?: string[]
+          is_published?: boolean
+          sort_order?: number
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['resources']['Insert']>
+        Relationships: [
+          {
+            foreignKeyName: 'resources_chapter_id_fkey'
+            columns: ['chapter_id']
+            isOneToOne: false
+            referencedRelation: 'chapters'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'resources_created_by_fkey'
+            columns: ['created_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      resource_completions: {
+        Row: {
+          id: string
+          user_id: string
+          resource_id: string
+          completed_at: string
+          expires_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          resource_id: string
+          completed_at?: string
+          expires_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['resource_completions']['Insert']>
+        Relationships: [
+          {
+            foreignKeyName: 'resource_completions_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'resource_completions_resource_id_fkey'
+            columns: ['resource_id']
+            isOneToOne: false
+            referencedRelation: 'resources'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      certification_requirements: {
+        Row: {
+          id: string
+          level: 'CALC' | 'PALC' | 'SALC' | 'MALC'
+          resource_id: string
+          is_required: boolean
+          sort_order: number
+          created_by: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          level: 'CALC' | 'PALC' | 'SALC' | 'MALC'
+          resource_id: string
+          is_required?: boolean
+          sort_order?: number
+          created_by?: string | null
+          created_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['certification_requirements']['Insert']>
+        Relationships: [
+          {
+            foreignKeyName: 'certification_requirements_resource_id_fkey'
+            columns: ['resource_id']
+            isOneToOne: false
+            referencedRelation: 'resources'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'certification_requirements_created_by_fkey'
+            columns: ['created_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      user_certifications: {
+        Row: {
+          id: string
+          user_id: string
+          level: 'CALC' | 'PALC' | 'SALC' | 'MALC'
+          status: 'pending_approval' | 'approved' | 'expired' | 'revoked'
+          applied_at: string
+          approved_at: string | null
+          approved_by: string | null
+          expires_at: string | null
+          notes: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          level: 'CALC' | 'PALC' | 'SALC' | 'MALC'
+          status?: 'pending_approval' | 'approved' | 'expired' | 'revoked'
+          applied_at?: string
+          approved_at?: string | null
+          approved_by?: string | null
+          expires_at?: string | null
+          notes?: string | null
+        }
+        Update: Partial<Database['public']['Tables']['user_certifications']['Insert']>
+        Relationships: [
+          {
+            foreignKeyName: 'user_certifications_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'user_certifications_approved_by_fkey'
+            columns: ['approved_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
     }
     Views: Record<string, never>
     Functions: {

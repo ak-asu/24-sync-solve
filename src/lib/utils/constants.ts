@@ -101,7 +101,6 @@ export const SITE_URL = process.env['NEXT_PUBLIC_SITE_URL'] ?? 'http://localhost
 /** Navigation links for global site */
 export const GLOBAL_NAV_LINKS = [
   { href: '/about', labelKey: 'nav.about' },
-  { href: '/certification', labelKey: 'nav.certification' },
   { href: '/coaches', labelKey: 'nav.coaches' },
   { href: '/resources', labelKey: 'nav.resources' },
   { href: '/events', labelKey: 'nav.events' },
@@ -111,6 +110,7 @@ export const GLOBAL_NAV_LINKS = [
 export const CHAPTER_NAV_LINKS = [
   { href: '/about', labelKey: 'nav.about' },
   { href: '/coaches', labelKey: 'nav.coaches' },
+  { href: '/resources', labelKey: 'nav.resources' },
   { href: '/events', labelKey: 'nav.events' },
   { href: '/pay', labelKey: 'nav.pay' },
 ] as const

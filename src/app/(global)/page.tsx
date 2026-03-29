@@ -83,7 +83,7 @@ async function FallbackHomepage() {
                 {t('hero.ctaPrimary')}
               </Link>
               <Link
-                href="/certification"
+                href="/about"
                 className="rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               >
                 {t('hero.ctaSecondary')}
@@ -148,7 +148,7 @@ async function FallbackHomepage() {
           </div>
           <div className="mt-10 text-center">
             <Link
-              href="/certification"
+              href="/about"
               className="bg-wial-navy hover:bg-wial-navy-dark inline-block rounded-lg px-6 py-3 text-sm font-semibold text-white transition-colors"
             >
               {t('certification.cta')}

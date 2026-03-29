@@ -31,10 +31,14 @@
       "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -path *contact* -type f)",
       "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
       "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
-      "Bash(grep \"\\\\.sql$\")"
+      "Bash(grep \"\\\\.sql$\")",
+      "Bash(npx eslint:*)",
+      "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -type d -name *profile* -o -type d -name *dashboard*)",
+      "Bash(find /c/Users/presyze/Projects/ASU/ohack/src/app -type f \\\\\\(-name *profile* -o -name *dashboard* \\\\\\))"
     ],
     "additionalDirectories": [
-      "c:\\Users\\presyze\\Projects\\ASU\\ohack\\src\\app\\[chapter]\\manage"
+      "c:\\Users\\presyze\\Projects\\ASU\\ohack\\src\\app\\[chapter]\\manage",
+      "C:\\Users\\presyze\\Projects\\ASU\\ohack\\src\\app\\(global)\\resources\\manage\\[resourceId]"
     ]
   }
 }

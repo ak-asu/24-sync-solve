@@ -2,21 +2,21 @@
 -- WIAL Platform - Refresh Global Pages Content
 -- Migration: 00009_update_global_pages
 -- ============================================================
--- Replaces stale / empty content blocks for the home, about,
--- certification, and resources global pages with substantive,
--- accurate content aligned with WIAL's mission and methodology.
+-- Replaces stale / empty content blocks for the home and about
+-- global pages with substantive, accurate content aligned with
+-- WIAL's mission and methodology.
 --
 -- Strategy: DELETE then re-INSERT rather than ON CONFLICT DO NOTHING,
 -- so stale or empty blocks created by earlier migrations are replaced.
 -- ============================================================
 
--- ── Step 1: Remove all existing blocks for the four global pages ──
+-- ── Step 1: Remove all existing blocks for the two global pages ──
 
 DELETE FROM content_blocks
 WHERE page_id IN (
   SELECT id FROM pages
   WHERE chapter_id IS NULL
-  AND slug IN ('home', 'about', 'certification', 'resources')
+  AND slug IN ('home', 'about')
 );
 
 -- ── Step 2: Home page ─────────────────────────────────────────────
@@ -40,7 +40,7 @@ SELECT
 FROM home_page, (VALUES
   (
     'hero',
-    '{"headline": "Transforming Leaders Through Action Learning", "subheadline": "WIAL certifies Action Learning coaches in 20+ countries, empowering organisations to solve complex challenges and build lasting leadership capacity.", "cta_primary_text": "Find a Coach", "cta_primary_href": "/coaches", "cta_secondary_text": "Get Certified", "cta_secondary_href": "/certification", "background_image_url": null}'::jsonb,
+    '{"headline": "Transforming Leaders Through Action Learning", "subheadline": "WIAL certifies Action Learning coaches in 20+ countries, empowering organisations to solve complex challenges and build lasting leadership capacity.", "cta_primary_text": "Find a Coach", "cta_primary_href": "/coaches", "cta_secondary_text": "Get Certified", "cta_secondary_href": "/about", "background_image_url": null}'::jsonb,
     0
   ),
   (
@@ -54,14 +54,9 @@ FROM home_page, (VALUES
     2
   ),
   (
-    'text',
-    '{"heading": "Certification Levels", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "WIAL offers four progressive certification levels, each recognising increasing depth of expertise. All levels are competency-based and require documented coaching hours in real Action Learning sets."}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "CALC — Certified Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "Entry-level credential for new practitioners. Requires 3 sets coached (approx. 20 hours) and completion of WIAL-accredited training."}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "PALC — Professional Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "For coaches with proven competency across diverse contexts. Requires 5 sets (approx. 40 hours) and a reflective portfolio."}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "SALC — Senior Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "Recognises advanced mastery in complex, multicultural settings. Requires 8+ sets (approx. 70 hours), peer review, and contribution to the field."}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "MALC — Master Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "The highest WIAL designation. Awarded to coaches demonstrating extraordinary mastery, original scholarship, and sustained service to the global Action Learning community."}]}]}}'::jsonb,
-    3
-  ),
-  (
     'cta',
     '{"heading": "Ready to Transform Your Organisation?", "subheading": "Join the global community of certified Action Learning coaches and practitioners making a difference in 20+ countries.", "button_text": "Find Your Coach", "button_href": "/coaches", "variant": "dark"}'::jsonb,
-    4
+    3
   )
 ) AS blocks(block_type, content, sort_order);
 
@@ -108,107 +103,10 @@ FROM about_page, (VALUES
     'text',
     '{"heading": "Our Global Community", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "WIAL operates through a network of regional chapters spanning every continent. Each chapter brings Action Learning to its local context — adapting delivery, supporting local coaches, and connecting practitioners — while maintaining the rigorous global standards that make WIAL certification meaningful worldwide."}]}, {"type": "paragraph", "content": [{"type": "text", "text": "Our chapters are led by certified Senior and Master Action Learning Coaches who are deeply embedded in their regional leadership development ecosystems. Through chapters in the USA, UK, Nigeria, Brazil, Australia, and many more countries, WIAL ensures that world-class Action Learning is accessible wherever it is needed."}]}]}}'::jsonb,
     4
-  )
-) AS blocks(block_type, content, sort_order);
-
--- ── Step 4: Certification page ────────────────────────────────────
-
-WITH cert_page AS (
-  SELECT id FROM pages WHERE chapter_id IS NULL AND slug = 'certification'
-)
-INSERT INTO content_blocks (
-  page_id, block_type, content, published_version,
-  sort_order, is_visible, status, requires_approval
-)
-SELECT
-  cert_page.id,
-  block_type::block_type,
-  content,
-  content AS published_version,
-  sort_order,
-  true,
-  'published',
-  block_type IN ('hero', 'cta', 'contact_form')
-FROM cert_page, (VALUES
-  (
-    'hero',
-    '{"headline": "Action Learning Certification", "subheadline": "Earn globally recognised credentials as an Action Learning coach. WIAL''s four certification levels provide a clear pathway from entry-level practice to master-level mastery, validated by the world''s leading Action Learning authority.", "cta_primary_text": "Apply Now", "cta_primary_href": "/about#contact", "cta_secondary_text": "Find a Coach", "cta_secondary_href": "/coaches"}'::jsonb,
-    0
   ),
   (
-    'text',
-    '{"heading": "Why Get Certified?", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "WIAL certification is the international gold standard for Action Learning coaches. It signals to clients, employers, and colleagues that you have been rigorously assessed against global competency standards — not just trained in a methodology."}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Recognised by multinational corporations, governments, and leading universities worldwide"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Competency-based: assessed on real coaching practice, not just coursework"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Progressive: four levels that grow with your career, from first sets to master practitioner"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Global: valid across all WIAL chapters and recognised in 20+ countries"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Community: join 500+ certified coaches in a peer network spanning six continents"}]}]}]}]}}'::jsonb,
-    1
-  ),
-  (
-    'text',
-    '{"heading": "Certification Levels", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Each level builds on the previous, deepening your competency and expanding your scope of practice. Certification requires documented coaching hours in real sets — not simulations."}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "text": "CALC — Certified Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "The entry-level WIAL credential for practitioners who have completed accredited training and are beginning their coaching practice."}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Minimum 3 Action Learning sets coached (approx. 20 hours)"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Completion of WIAL-accredited coach training"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Demonstration of core Action Learning competencies"}]}]}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "text": "PALC — Professional Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "For coaches who have built a practice and demonstrated consistent competency across diverse organisational contexts."}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Minimum 5 Action Learning sets coached (approx. 40 hours)"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Reflective portfolio demonstrating professional growth"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Evidence of coaching across different problem types and group compositions"}]}]}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "text": "SALC — Senior Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "Recognises advanced mastery in complex, multicultural, and high-stakes settings. SALC coaches often mentor emerging practitioners."}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Minimum 8 Action Learning sets coached (approx. 70+ hours)"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Peer review and assessment by certified SALC or MALC coaches"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Evidence of contribution to the field (writing, teaching, or mentoring)"}]}]}]}, {"type": "heading", "attrs": {"level": 3}, "content": [{"type": "text", "text": "MALC — Master Action Learning Coach"}]}, {"type": "paragraph", "content": [{"type": "text", "text": "The highest WIAL certification, reserved for coaches who have made exceptional contributions to Action Learning theory, practice, and the global community."}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Extensive documented coaching portfolio across multiple organisations and sectors"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Original contribution to Action Learning knowledge (publications, curriculum, or research)"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Sustained mentoring of coaches at lower certification levels"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Assessment by WIAL Master coaches and board review"}]}]}]}]}}'::jsonb,
-    2
-  ),
-  (
-    'text',
-    '{"heading": "How to Get Certified", "body": {"type": "doc", "content": [{"type": "orderedList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Complete accredited training. "}, {"type": "text", "text": "Attend a WIAL-accredited Action Learning Coach training programme delivered by a certified chapter or authorised partner."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Coach real sets. "}, {"type": "text", "text": "Apply your skills by coaching genuine Action Learning sessions in your organisation or as an external practitioner. Document each set with participant details and outcomes."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Build your portfolio. "}, {"type": "text", "text": "Compile a reflective portfolio demonstrating your competency development, the sets you have coached, and your professional growth."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Submit your application. "}, {"type": "text", "text": "Apply through your regional WIAL chapter or via WIAL Global. Your portfolio is reviewed by certified assessors."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Receive your credential. "}, {"type": "text", "text": "Upon approval, receive your WIAL certification and join the global register of certified coaches. Certification is valid for two years."}]}]}]}]}}'::jsonb,
-    3
-  ),
-  (
-    'text',
-    '{"heading": "Recertification", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "All WIAL certifications are valid for two years. Recertification ensures that coaches remain current with evolving practice standards and continue growing their competency."}]}, {"type": "paragraph", "content": [{"type": "text", "text": "To recertify, you must demonstrate continued active practice (minimum sets coached in the cycle), complete ongoing professional development, and submit evidence of your continued contribution to Action Learning. WIAL chapter members receive recertification support and reminders through their local chapter."}]}]}}'::jsonb,
-    4
-  ),
-  (
-    'cta',
-    '{"heading": "Start Your Certification Journey", "subheading": "Contact your regional WIAL chapter to enrol in accredited training and begin the path to WIAL certification.", "button_text": "Contact WIAL", "button_href": "/about#contact", "variant": "dark"}'::jsonb,
-    5
-  )
-) AS blocks(block_type, content, sort_order);
-
--- ── Step 5: Resources page ────────────────────────────────────────
-
-WITH resources_page AS (
-  SELECT id FROM pages WHERE chapter_id IS NULL AND slug = 'resources'
-)
-INSERT INTO content_blocks (
-  page_id, block_type, content, published_version,
-  sort_order, is_visible, status, requires_approval
-)
-SELECT
-  resources_page.id,
-  block_type::block_type,
-  content,
-  content AS published_version,
-  sort_order,
-  true,
-  'published',
-  block_type IN ('hero', 'cta', 'contact_form')
-FROM resources_page, (VALUES
-  (
-    'hero',
-    '{"headline": "Resources & Library", "subheadline": "Research, practitioner guides, webinars, and tools to deepen your Action Learning practice — curated by WIAL and the global coaching community."}'::jsonb,
-    0
-  ),
-  (
-    'text',
-    '{"heading": "Research & Publications", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "WIAL supports a rich body of research and academic publishing on Action Learning theory and practice:"}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Action Learning: Research & Practice "}, {"type": "text", "text": "— the peer-reviewed journal dedicated to Action Learning, published in association with WIAL."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "\"Action Learning: How the World''s Top Companies Are Re-creating Their Leaders\" "}, {"type": "text", "text": "— Dr. Michael Marquardt''s foundational text for WIAL''s approach."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "\"Optimizing the Power of Action Learning\" "}, {"type": "text", "text": "— WIAL''s core practitioner guide covering set design, problem scoping, and coach competencies."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Case studies from WIAL-certified coaches working in government, corporate, healthcare, and education sectors across 20+ countries."}]}]}]}]}}'::jsonb,
-    1
-  ),
-  (
-    'text',
-    '{"heading": "Practitioner Guides", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Practical resources developed by WIAL and the global coach community:"}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Set Design Toolkit "}, {"type": "text", "text": "— frameworks for scoping problems, composing sets, and contracting with sponsors."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Questioning Frameworks "}, {"type": "text", "text": "— question hierarchies and prompts aligned to WIAL''s competency model."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Virtual Action Learning Guide "}, {"type": "text", "text": "— adapting WIAL''s methodology for remote and hybrid set delivery."}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "marks": [{"type": "bold"}], "text": "Stakeholder Engagement Playbook "}, {"type": "text", "text": "— how to brief sponsors, participants, and champions for maximum set impact."}]}]}]}]}}'::jsonb,
-    2
-  ),
-  (
-    'text',
-    '{"heading": "Webinars & Learning Sessions", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "WIAL and regional chapters host regular webinars, workshops, and community calls. Topics include advanced coaching techniques, cross-cultural Action Learning, virtual facilitation, and peer coaching practice."}]}, {"type": "paragraph", "content": [{"type": "text", "text": "Check your regional chapter''s events page for upcoming sessions, or contact WIAL Global to access recorded content from past webinars."}]}]}}'::jsonb,
-    3
-  ),
-  (
-    'text',
-    '{"heading": "Tools & Templates", "body": {"type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Ready-to-use instruments for coaches and programme designers:"}]}, {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Session planning and debrief templates"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Participant self-assessment forms (aligned to WIAL competency model)"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Problem statement scoping canvas"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Action tracking and accountability log"}]}]}, {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Programme evaluation and ROI measurement framework"}]}]}]}]}}'::jsonb,
-    4
-  ),
-  (
-    'cta',
-    '{"heading": "Contribute to the Library", "subheading": "Are you a certified coach with a case study, guide, or tool worth sharing? WIAL welcomes community contributions that advance Action Learning practice.", "button_text": "Contact WIAL", "button_href": "/about#contact", "variant": "light"}'::jsonb,
+    'faq',
+    '{"heading": "Certification: Frequently Asked Questions", "items": [{"question": "What is WIAL certification?", "answer": "WIAL certification is the international gold standard for Action Learning coaches. Awarded at four progressive levels — CALC, PALC, SALC, and MALC — it confirms you have been rigorously assessed against global competency standards based on real coaching practice, not just coursework."}, {"question": "What are the four certification levels?", "answer": "CALC (Certified, entry-level: 3 sets coached, approximately 20 hours), PALC (Professional: 5 sets, approximately 40 hours), SALC (Senior: 8 or more sets, approximately 70 hours, peer review required), and MALC (Master: extensive coaching portfolio, original contribution to the field, board review)."}, {"question": "How do I get certified?", "answer": "Complete WIAL-accredited training through a regional chapter, coach the required minimum number of real Action Learning sets, compile a reflective portfolio, then apply through your chapter. Most coaches complete their first certification within 6 to 18 months of starting practice."}, {"question": "How long is certification valid?", "answer": "All WIAL certifications are valid for two years. Recertification requires demonstrating continued active coaching practice, ongoing professional development, and contribution to Action Learning during the cycle."}, {"question": "Is WIAL certification recognised internationally?", "answer": "Yes. WIAL certification is recognised by multinational corporations, governments, NGOs, and universities across 20 or more countries. It is the most widely accepted credential for Action Learning coaches worldwide."}, {"question": "Where can I find accredited training?", "answer": "Contact your regional WIAL chapter or reach out to WIAL Global using the contact form above. Accredited training is available in person and online across 20 or more countries."}]}'::jsonb,
     5
   )
 ) AS blocks(block_type, content, sort_order);

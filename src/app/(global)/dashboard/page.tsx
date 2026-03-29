@@ -15,11 +15,14 @@ import {
   Building2,
   CheckCircle2,
   AlertCircle,
+  BookOpen,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { UserMenu } from '@/components/layout/UserMenu'
 import { getCoachProfileByUserId } from '@/features/coaches/queries/getCoachById'
 import { getUserPayments } from '@/features/payments/queries/getPayments'
+import { getCertificationProgress } from '@/features/resources/queries/getCertificationProgress'
+import { CertificationProgressSection } from '@/components/resources/CertificationProgressSection'
 import { formatCurrency, formatDate } from '@/lib/utils/format'
 import { CERTIFICATION_LABELS } from '@/lib/utils/constants'
 import type { CertificationLevel, UserRole } from '@/types/database'
@@ -76,27 +79,29 @@ export default async function DashboardPage() {
   const isCoach = profile?.role === 'coach'
 
   // ── Parallel data fetch ────────────────────────────────────────────────────
-  const [coachProfile, payments, chapterRolesResult, pendingAppResult] = await Promise.all([
-    isCoach ? getCoachProfileByUserId(supabase, user.id) : Promise.resolve(null),
-    getUserPayments(supabase, user.id),
-    // Fetch all active chapter roles for multi-chapter management (Gap C)
-    supabase
-      .from('user_chapter_roles')
-      .select('role, chapter:chapters!user_chapter_roles_chapter_id_fkey(id, name, slug)')
-      .eq('user_id', user.id)
-      .eq('is_active', true)
-      .in('role', ['chapter_lead', 'content_editor']),
-    // Check for pending coach application (Gap G — show CTA only if none pending)
-    !isCoach
-      ? supabase
-          .from('coach_applications')
-          .select('id')
-          .eq('user_id', user.id)
-          .eq('status', 'pending')
-          .limit(1)
-          .maybeSingle()
-      : Promise.resolve({ data: null }),
-  ])
+  const [coachProfile, payments, chapterRolesResult, pendingAppResult, certProgress] =
+    await Promise.all([
+      isCoach ? getCoachProfileByUserId(supabase, user.id) : Promise.resolve(null),
+      getUserPayments(supabase, user.id),
+      // Fetch all active chapter roles for multi-chapter management (Gap C)
+      supabase
+        .from('user_chapter_roles')
+        .select('role, chapter:chapters!user_chapter_roles_chapter_id_fkey(id, name, slug)')
+        .eq('user_id', user.id)
+        .eq('is_active', true)
+        .in('role', ['chapter_lead', 'content_editor']),
+      // Check for pending coach application (Gap G — show CTA only if none pending)
+      !isCoach
+        ? supabase
+            .from('coach_applications')
+            .select('id')
+            .eq('user_id', user.id)
+            .eq('status', 'pending')
+            .limit(1)
+            .maybeSingle()
+        : Promise.resolve({ data: null }),
+      getCertificationProgress(supabase, user.id),
+    ])
 
   // ── Build managed chapters list (Gap C) ────────────────────────────────────
   const chaptersMap = new Map<string, ManagedChapter>()
@@ -300,7 +305,7 @@ export default async function DashboardPage() {
                   <p className="font-medium text-gray-600">{t('coachProfile.noProfile')}</p>
                   <p className="mt-1 text-sm text-gray-400">{t('coachProfile.noProfileHint')}</p>
                   <Link
-                    href="/certification"
+                    href="/about"
                     className="bg-wial-red hover:bg-wial-red-dark mt-5 inline-block rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors"
                   >
                     {t('coachProfile.learnCertification')}
@@ -309,6 +314,21 @@ export default async function DashboardPage() {
               )}
             </div>
           )}
+
+          {/* ── Certification progress ──────────────────────────────────── */}
+          <div>
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-wial-navy text-lg font-semibold">Certification Progress</h2>
+              <Link
+                href="/resources"
+                className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700"
+              >
+                <BookOpen size={14} aria-hidden="true" />
+                Browse Resources
+              </Link>
+            </div>
+            <CertificationProgressSection progress={certProgress} />
+          </div>
 
           {/* ── Apply to be a Coach CTA (Gap G) ─────────────────────────── */}
           {showApplyCTA && (
