@@ -25,19 +25,17 @@ export async function smartMatchCoaches(query: string): Promise<SmartMatchResult
 
   // Step 1: Parse the user query into structured filters and a semantic search term
   const { object: parsedQuery } = await generateObject({
-    model: openai('gpt-4o-mini', { structuredOutputs: false }),
+    model: openai('gpt-4o-mini', { structuredOutputs: true }),
     schema: z.object({
       country: z
         .string()
         .nullable()
-        .optional()
         .describe(
           'A specific country name in English if explicitly mentioned (e.g. "Brazil", "Spain"). If only a city corresponds (like "Sao Paulo"), leave this empty and add to semanticSearchQuery.'
         ),
       certification: z
         .enum(['CALC', 'PALC', 'SALC', 'MALC', ''])
         .nullable()
-        .optional()
         .describe('Action learning certification level explicitly mentioned.'),
       semanticSearchQuery: z
         .string()
