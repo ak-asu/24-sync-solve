@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Input, Button, Tabs, Tab, Avatar } from '@heroui/react'
 import { searchKnowledge } from '@/features/knowledge/actions/searchKnowledge'
-import { Search } from 'lucide-react'
 import { ResourceCard } from '@/components/resources/ResourceCard'
 import type { Resource } from '@/features/resources/types'
 import type { UserRole } from '@/types'
@@ -33,18 +32,16 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
       <form onSubmit={handleSearch} className="mb-8 flex w-full max-w-2xl gap-2">
         <Input
           value={query}
-          onValueChange={setQuery}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="e.g. Action Learning for healthcare teams"
-          size="lg"
-          startContent={<Search className="mr-1 h-5 w-5 text-gray-400" />}
           className="flex-grow"
         />
         <Button
           type="submit"
           size="lg"
-          variant="solid"
+          variant="primary"
           className="bg-wial-red text-white"
-          isLoading={loading}
+          isPending={loading}
         >
           Search
         </Button>
@@ -80,11 +77,12 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
                     key={coach.user_id}
                     className="flex gap-4 rounded-lg border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
                   >
-                    <Avatar
-                      src={coach.profiles?.avatar_url ?? undefined}
-                      name={coach.profiles?.full_name ?? undefined}
-                      className="text-large h-16 w-16 flex-shrink-0"
-                    />
+                    <Avatar className="text-large h-16 w-16 flex-shrink-0">
+                      <Avatar.Image
+                        src={coach.profiles?.avatar_url ?? undefined}
+                        alt={coach.profiles?.full_name ?? 'Coach'}
+                      />
+                    </Avatar>
                     <div className="flex flex-grow flex-col truncate">
                       <div className="mr-1 truncate text-lg font-semibold">
                         {coach.profiles?.full_name}

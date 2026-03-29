@@ -3,6 +3,17 @@ import { embed } from 'ai'
 import { openai } from '@ai-sdk/openai'
 import { createClient } from '@/lib/supabase/server'
 
+interface SearchResourcesRpc {
+  rpc: (
+    fn: 'search_resources',
+    args: {
+      query_embedding: number[]
+      match_threshold: number
+      match_count: number
+    }
+  ) => Promise<{ data: unknown[] | null }>
+}
+
 export async function searchKnowledge(query: string) {
   const supabase = await createClient()
 
@@ -12,7 +23,8 @@ export async function searchKnowledge(query: string) {
   })
 
   // Semantic resource search via pgvector RPC
-  const { data: resources } = await supabase.rpc('search_resources', {
+  const rpcClient = supabase as unknown as SearchResourcesRpc
+  const { data: resources } = await rpcClient.rpc('search_resources', {
     query_embedding: embedding,
     match_threshold: 0.1,
     match_count: 5,
