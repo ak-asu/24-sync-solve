@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import { createClient } from '@/lib/supabase/server'
 import { getResources, getResourceCategories } from '@/features/resources/queries/getResources'
 import { getUserCompletions } from '@/features/resources/queries/getCompletions'
+import { getCoachMapByResourceIds } from '@/features/resources/queries/getCoachCourseMappings'
 import { getPermissionContext } from '@/lib/permissions/context'
 import { hasPermission } from '@/lib/permissions/permissions'
 import { ResourceCard } from '@/components/resources/ResourceCard'
@@ -49,6 +50,11 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
     getResourceCategories(supabase),
     ctx ? getUserCompletions(supabase, ctx.userId) : Promise.resolve(null),
   ])
+
+  const resourceCoachMap = await getCoachMapByResourceIds(
+    supabase,
+    resources.map((resource) => resource.id)
+  )
 
   return (
     <main id="main-content" className="bg-white">
@@ -129,6 +135,7 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
                 <ResourceCard
                   key={resource.id}
                   resource={resource}
+                  teachingCoaches={resourceCoachMap[resource.id] ?? []}
                   isCompleted={completedIds ? completedIds.has(resource.id) : undefined}
                 />
               ))}

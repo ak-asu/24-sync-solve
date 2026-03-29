@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Play, FileText, Download, ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 import {
   RESOURCE_TYPE_LABELS,
   RESOURCE_TYPE_COLORS,
@@ -7,9 +8,11 @@ import {
 } from '@/features/resources/types'
 import { ResourceCardClient } from '@/components/resources/ResourceCardClient'
 import type { Resource } from '@/features/resources/types'
+import type { TeachingCoachPreview } from '@/features/resources/queries/getCoachCourseMappings'
 
 interface ResourceCardProps {
   resource: Resource
+  teachingCoaches?: TeachingCoachPreview[]
   /** Pass true/false when the user is authenticated to show the completion badge. */
   isCompleted?: boolean
 }
@@ -30,7 +33,7 @@ const CTA_LABELS: Record<string, string> = {
   webinar: 'Watch',
 }
 
-export function ResourceCard({ resource, isCompleted }: ResourceCardProps) {
+export function ResourceCard({ resource, teachingCoaches = [], isCompleted }: ResourceCardProps) {
   const Icon = TYPE_ICONS[resource.type] ?? ExternalLink
   const thumbnail =
     resource.thumbnail_url ?? (resource.type === 'video' ? getYouTubeThumbnail(resource.url) : null)
@@ -100,6 +103,28 @@ export function ResourceCard({ resource, isCompleted }: ResourceCardProps) {
 
         {resource.description && !resource.summary && (
           <p className="line-clamp-2 text-xs text-gray-500">{resource.description}</p>
+        )}
+
+        {teachingCoaches.length > 0 && (
+          <div className="mt-1">
+            <p className="text-[11px] font-medium text-gray-500">Taught by</p>
+            <div className="mt-1 flex flex-wrap gap-1.5">
+              {teachingCoaches.slice(0, 3).map((coach) => (
+                <Link
+                  key={coach.coachId}
+                  href={`/coaches/${coach.coachId}`}
+                  className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-semibold text-[var(--color-brand-shell)] hover:bg-red-100"
+                >
+                  {coach.name}
+                </Link>
+              ))}
+              {teachingCoaches.length > 3 && (
+                <span className="text-[10px] font-medium text-gray-400">
+                  +{teachingCoaches.length - 3} more
+                </span>
+              )}
+            </div>
+          </div>
         )}
 
         {/* Key Findings Tags */}

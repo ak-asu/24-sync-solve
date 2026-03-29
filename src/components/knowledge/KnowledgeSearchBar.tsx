@@ -1,16 +1,45 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Input, Button, Tabs, Tab, Avatar } from '@heroui/react'
 import { searchKnowledge } from '@/features/knowledge/actions/searchKnowledge'
 import { ResourceCard } from '@/components/resources/ResourceCard'
 import type { Resource } from '@/features/resources/types'
+import type {
+  CoursePreview,
+  TeachingCoachPreview,
+} from '@/features/resources/queries/getCoachCourseMappings'
 import type { UserRole } from '@/types'
+
+interface SearchResourceResult extends Resource {
+  teachingCoaches?: TeachingCoachPreview[]
+}
+
+interface SearchCoachResult {
+  id: string
+  user_id: string
+  bio: string | null
+  specializations: string[]
+  location_city: string | null
+  location_country: string | null
+  certification_level: string
+  profiles: {
+    full_name: string | null
+    avatar_url: string | null
+  } | null
+  courses: CoursePreview[]
+}
+
+interface KnowledgeSearchResult {
+  resources: SearchResourceResult[]
+  coaches: SearchCoachResult[]
+}
 
 export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) {
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState<{ resources: Resource[]; coaches: any[] } | null>(null)
+  const [results, setResults] = useState<KnowledgeSearchResult | null>(null)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,7 +48,7 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
     setLoading(true)
     try {
       const res = await searchKnowledge(query)
-      setResults(res as any)
+      setResults(res as KnowledgeSearchResult)
     } catch (err) {
       console.error(err)
     } finally {
@@ -58,7 +87,11 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {results.resources.map((resource) => (
-                  <ResourceCard key={resource.id} resource={resource} />
+                  <ResourceCard
+                    key={resource.id}
+                    resource={resource}
+                    teachingCoaches={resource.teachingCoaches ?? []}
+                  />
                 ))}
               </div>
             </section>
@@ -74,7 +107,7 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {results.coaches.map((coach) => (
                   <div
-                    key={coach.user_id}
+                    key={coach.id}
                     className="flex gap-4 rounded-lg border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
                   >
                     <Avatar className="text-large h-16 w-16 flex-shrink-0">
@@ -85,7 +118,9 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
                     </Avatar>
                     <div className="flex flex-grow flex-col truncate">
                       <div className="mr-1 truncate text-lg font-semibold">
-                        {coach.profiles?.full_name}
+                        <Link href={`/coaches/${coach.id}`} className="hover:underline">
+                          {coach.profiles?.full_name}
+                        </Link>
                       </div>
                       <div className="text-wial-red mb-1.5 text-sm font-medium">
                         {coach.certification_level} Coach
@@ -96,6 +131,31 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
                       {coach.specializations && coach.specializations.length > 0 && (
                         <div className="mt-1 truncate text-xs font-medium tracking-wide text-gray-400 uppercase">
                           {coach.specializations.join(' • ')}
+                        </div>
+                      )}
+                      {coach.courses.length > 0 && (
+                        <div className="mt-2">
+                          <p className="text-[11px] font-semibold text-gray-500 uppercase">
+                            Courses Taught
+                          </p>
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            {coach.courses.slice(0, 3).map((course) => (
+                              <a
+                                key={course.id}
+                                href={course.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-semibold text-[var(--color-brand-shell)] hover:bg-red-100"
+                              >
+                                {course.title}
+                              </a>
+                            ))}
+                            {coach.courses.length > 3 && (
+                              <span className="text-[10px] text-gray-400">
+                                +{coach.courses.length - 3} more
+                              </span>
+                            )}
+                          </div>
                         </div>
                       )}
                     </div>
