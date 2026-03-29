@@ -111,20 +111,6 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
         </div>
       </section>
 
-      {/* Primary Discovery Section (AI Search) */}
-      <section className="relative z-10 -mt-10 px-6 pb-16 lg:px-8">
-        <div className="shadow-navy/10 mx-auto max-w-5xl rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl">
-          <div className="mb-10 text-center">
-            <h2 className="text-wial-navy text-3xl font-bold">Search the Knowledge Base</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-gray-500">
-              Ask questions or find specific topics across our entire library of research articles,
-              videos, and webinars.
-            </p>
-          </div>
-          <KnowledgeSearchBar userRole={ctx?.globalRole ?? null} />
-        </div>
-      </section>
-
       {/* Filters + grid */}
       <section className="bg-gray-50 py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
