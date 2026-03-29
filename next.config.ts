@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@heroui/react', 'lucide-react'],
   },
+  serverExternalPackages: ['@xenova/transformers'],
   turbopack: {
     root: projectRoot,
   },
