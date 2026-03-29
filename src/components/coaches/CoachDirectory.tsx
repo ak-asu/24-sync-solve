@@ -1,14 +1,13 @@
 'use client'
 
-import { useState, useTransition, useCallback } from 'react'
+import { useState, useTransition, useCallback, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Search, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Button, Input, ListBox, ListBoxItem, Select } from '@heroui/react'
+import { Button, Input } from '@heroui/react'
 import { CoachCard } from '@/components/coaches/CoachCard'
 import { SmartMatchWidget } from '@/components/search/SmartMatchWidget'
 import type { CoachWithBasicProfile } from '@/features/coaches/queries/getCoaches'
-import { CERTIFICATION_ORDER } from '@/lib/utils/constants'
 
 interface CoachDirectoryProps {
   initialCoaches: CoachWithBasicProfile[]
@@ -43,11 +42,20 @@ export function CoachDirectory({
       }
       params.delete('cursor') // Reset pagination on filter change
       startTransition(() => {
-        router.push(`?${params.toString()}`)
+        router.push(`?${params.toString()}`, { scroll: false })
       })
     },
     [router, searchParams]
   )
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (localQ !== initialFilters.q) {
+        updateFilter('q', localQ)
+      }
+    }, 400)
+    return () => clearTimeout(timer)
+  }, [localQ, initialFilters.q, updateFilter])
 
   const clearFilters = () => {
     setLocalQ('')
@@ -96,10 +104,10 @@ export function CoachDirectory({
                   value={localQ}
                   onChange={(e) => setLocalQ(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') updateFilter('q', localQ)
-                  }}
-                  onBlur={() => {
-                    if (localQ !== initialFilters.q) updateFilter('q', localQ)
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      updateFilter('q', localQ)
+                    }
                   }}
                   placeholder={t('searchPlaceholder')}
                   aria-label={t('searchLabel')}
@@ -108,60 +116,8 @@ export function CoachDirectory({
               </div>
             </div>
 
-            {/* Certification filter */}
-            <div>
-              <label id="cert-filter-label" htmlFor="cert-filter-trigger" className="sr-only">
-                {t('filterCertLabel')}
-              </label>
-              <Select
-                aria-labelledby="cert-filter-label"
-                selectedKey={initialFilters.certification || null}
-                onSelectionChange={(key) => updateFilter('certification', String(key ?? ''))}
-              >
-                <Select.Trigger id="cert-filter-trigger">
-                  <Select.Value />
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Popover>
-                  <ListBox aria-label={t('filterCertLabel')}>
-                    {CERTIFICATION_ORDER.map((level) => (
-                      <ListBoxItem key={level} id={level}>
-                        {level}
-                      </ListBoxItem>
-                    ))}
-                  </ListBox>
-                </Select.Popover>
-              </Select>
-            </div>
-
-            {/* Chapter filter */}
-            <div>
-              <label id="chapter-filter-label" htmlFor="chapter-filter-trigger" className="sr-only">
-                {t('filterChapterLabel')}
-              </label>
-              <Select
-                aria-labelledby="chapter-filter-label"
-                selectedKey={initialFilters.chapter || null}
-                onSelectionChange={(key) => updateFilter('chapter', String(key ?? ''))}
-              >
-                <Select.Trigger id="chapter-filter-trigger">
-                  <Select.Value />
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Popover>
-                  <ListBox aria-label={t('filterChapterLabel')}>
-                    {chapters.map((ch) => (
-                      <ListBoxItem key={ch.slug} id={ch.slug}>
-                        {ch.name}
-                      </ListBoxItem>
-                    ))}
-                  </ListBox>
-                </Select.Popover>
-              </Select>
-            </div>
-
             {/* Clear filters */}
-            {hasActiveFilters && (
+            {localQ && (
               <Button
                 type="button"
                 onPress={clearFilters}

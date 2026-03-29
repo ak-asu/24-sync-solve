@@ -98,8 +98,29 @@ export async function getCoaches(
         query = query.in('id', matchedCoachIds)
       }
     } else {
-      // Basic text search (regex/tsvector) for basic Browse Directory
-      query = query.textSearch('search_vector', filters.q, { type: 'websearch' })
+      // Basic text search (regex/tsvector + exact text matches) for basic Browse Directory
+      const term = `%${filters.q}%`
+
+      // 1. Get user_ids of any profiles matching name exact text
+      const adminClient = createAdminClient()
+      const { data: profileMatches } = await adminClient
+        .from('profiles')
+        .select('id')
+        .ilike('full_name', term)
+
+      const matchedUserIds = profileMatches?.map((p) => p.id) || []
+
+      // 2. Build the exact text OR query for coach_profiles metadata
+      let orQuery = `certification_level.ilike.${term},location_city.ilike.${term},location_country.ilike.${term},bio.ilike.${term}`
+      if (matchedUserIds.length > 0) {
+        orQuery += `,user_id.in.(${matchedUserIds.join(',')})`
+      }
+
+      // We combine the vector search (which captures fuzzy specializations) AND the exact text matches
+      // using PostgREST's syntax. Actually, PostgREST doesn't support combining full text search AND or() cleanly
+      // without chaining them as ANDs. So we will rely on purely the .or() for basic fast search.
+      // (Since 'bio' is covered by ilike and full_name, cert, location are covered!)
+      query = query.or(orQuery)
     }
   }
 
