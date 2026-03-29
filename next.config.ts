@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@heroui/react', 'lucide-react'],
   },
+  serverExternalPackages: ['@xenova/transformers'],
 
   async headers() {
     // 'unsafe-eval' is required by Next.js dev tooling (HMR, Turbopack) but must
