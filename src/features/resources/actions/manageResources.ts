@@ -8,16 +8,21 @@ import {
   canPerformInChapter,
   getPermissionContext,
 } from '@/lib/permissions/context'
+import { analyzeResourceContent } from '@/features/knowledge/ai'
 import type { ActionResult } from '@/types'
 
 const resourceSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200),
   description: z.string().max(500).optional(),
-  type: z.enum(['video', 'article', 'pdf', 'link']),
+  type: z.enum(['video', 'article', 'pdf', 'link', 'webinar']),
   url: z.string().url('Must be a valid URL'),
   thumbnail_url: z.string().url().optional().or(z.literal('')),
   category: z.string().max(50).optional(),
   is_published: z.boolean().default(true),
+  raw_text: z.string().optional(),
+  authors: z.array(z.string()).optional(),
+  presenter: z.string().optional(),
+  published_year: z.number().int().optional().nullable(),
 })
 
 export type ResourceFormData = z.infer<typeof resourceSchema>
@@ -49,6 +54,29 @@ export async function createResourceAction(
     const parsed = resourceSchema.parse(formData)
     const supabase = await createClient()
 
+    let aiData = {}
+    if (parsed.raw_text) {
+      const analysis = await analyzeResourceContent(parsed.title, parsed.raw_text)
+      aiData = {
+        raw_text: parsed.raw_text,
+        summary: analysis.summary,
+        key_findings: analysis.key_findings,
+        relevance_tags: analysis.relevance_tags,
+        translations: analysis.translations,
+        embedding: analysis.embedding,
+      }
+    } else if (parsed.description) {
+      // Fallback: analyze description if no raw_text provided
+      const analysis = await analyzeResourceContent(parsed.title, parsed.description)
+      aiData = {
+        summary: analysis.summary,
+        key_findings: analysis.key_findings,
+        relevance_tags: analysis.relevance_tags,
+        translations: analysis.translations,
+        embedding: analysis.embedding,
+      }
+    }
+
     const { error } = await supabase.from('resources').insert({
       title: parsed.title,
       description: parsed.description ?? null,
@@ -59,7 +87,11 @@ export async function createResourceAction(
       is_published: parsed.is_published,
       chapter_id: chapterId,
       created_by: ctx.userId,
-    })
+      authors: parsed.authors || null,
+      presenter: parsed.presenter || null,
+      published_year: parsed.published_year || null,
+      ...aiData,
+    } as any)
 
     if (error) throw new Error(error.message)
 
@@ -84,6 +116,19 @@ export async function updateResourceAction(
     const parsed = resourceSchema.parse(formData)
     const supabase = await createClient()
 
+    let aiData = {}
+    if (parsed.raw_text) {
+      const analysis = await analyzeResourceContent(parsed.title, parsed.raw_text)
+      aiData = {
+        raw_text: parsed.raw_text,
+        summary: analysis.summary,
+        key_findings: analysis.key_findings,
+        relevance_tags: analysis.relevance_tags,
+        translations: analysis.translations,
+        embedding: analysis.embedding,
+      }
+    }
+
     const { error } = await supabase
       .from('resources')
       .update({
@@ -94,7 +139,11 @@ export async function updateResourceAction(
         thumbnail_url: parsed.thumbnail_url || null,
         category: parsed.category || null,
         is_published: parsed.is_published,
-      })
+        authors: parsed.authors || null,
+        presenter: parsed.presenter || null,
+        published_year: parsed.published_year || null,
+        ...aiData,
+      } as any)
       .eq('id', resourceId)
 
     if (error) throw new Error(error.message)

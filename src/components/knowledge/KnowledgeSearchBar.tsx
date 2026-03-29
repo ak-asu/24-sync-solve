@@ -4,16 +4,14 @@ import { useState } from 'react'
 import { Input, Button, Tabs, Tab, Avatar } from '@heroui/react'
 import { searchKnowledge } from '@/features/knowledge/actions/searchKnowledge'
 import { Search } from 'lucide-react'
-import type { JournalArticle } from '@/features/knowledge/types'
-import { ArticleCard } from './ArticleCard'
+import { ResourceCard } from '@/components/resources/ResourceCard'
+import type { Resource } from '@/features/resources/types'
 import type { UserRole } from '@/types'
 
 export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) {
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState<{ articles: JournalArticle[]; coaches: any[] } | null>(
-    null
-  )
+  const [results, setResults] = useState<{ resources: Resource[]; coaches: any[] } | null>(null)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -35,7 +33,7 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
       <form onSubmit={handleSearch} className="mb-8 flex w-full max-w-2xl gap-2">
         <Input
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onValueChange={setQuery}
           placeholder="e.g. Action Learning for healthcare teams"
           size="lg"
           startContent={<Search className="mr-1 h-5 w-5 text-gray-400" />}
@@ -44,7 +42,7 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
         <Button
           type="submit"
           size="lg"
-          color="danger"
+          variant="solid"
           className="bg-wial-red text-white"
           isLoading={loading}
         >
@@ -54,21 +52,21 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
 
       {results && (
         <div className="w-full space-y-12">
-          {results.articles.length > 0 ? (
+          {results.resources.length > 0 ? (
             <section>
               <div className="mb-6 flex items-baseline justify-between border-b pb-2">
                 <h2 className="text-wial-navy text-2xl font-bold">
-                  Relevant Research ({results.articles.length})
+                  Matched Resources ({results.resources.length})
                 </h2>
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {results.articles.map((article) => (
-                  <ArticleCard key={article.id} article={article} userRole={userRole} />
+                {results.resources.map((resource) => (
+                  <ResourceCard key={resource.id} resource={resource} />
                 ))}
               </div>
             </section>
           ) : (
-            <p className="py-4 text-center text-gray-500">No matching articles found.</p>
+            <p className="py-4 text-center text-gray-500">No matching resources found.</p>
           )}
 
           {results.coaches.length > 0 && (
@@ -83,8 +81,8 @@ export function KnowledgeSearchBar({ userRole }: { userRole: UserRole | null }) 
                     className="flex gap-4 rounded-lg border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
                   >
                     <Avatar
-                      src={coach.profiles?.avatar_url}
-                      name={coach.profiles?.full_name}
+                      src={coach.profiles?.avatar_url ?? undefined}
+                      name={coach.profiles?.full_name ?? undefined}
                       className="text-large h-16 w-16 flex-shrink-0"
                     />
                     <div className="flex flex-grow flex-col truncate">

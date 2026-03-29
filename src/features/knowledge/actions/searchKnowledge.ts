@@ -11,8 +11,8 @@ export async function searchKnowledge(query: string) {
     value: query,
   })
 
-  // Semantic article search via pgvector RPC
-  const { data: articles } = await supabase.rpc('search_articles', {
+  // Semantic resource search via pgvector RPC
+  const { data: resources } = await supabase.rpc('search_resources', {
     query_embedding: embedding,
     match_threshold: 0.1,
     match_count: 5,
@@ -28,5 +28,5 @@ export async function searchKnowledge(query: string) {
     .eq('is_published', true)
     .limit(4)
 
-  return { articles: articles ?? [], coaches: coaches ?? [] }
+  return { resources: resources ?? [], coaches: coaches ?? [] }
 }

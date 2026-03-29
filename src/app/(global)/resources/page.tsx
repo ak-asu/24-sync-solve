@@ -8,6 +8,7 @@ import { getPermissionContext } from '@/lib/permissions/context'
 import { hasPermission } from '@/lib/permissions/permissions'
 import { ResourceCard } from '@/components/resources/ResourceCard'
 import { ResourceFilters } from '@/components/resources/ResourceFilters'
+import { KnowledgeSearchBar } from '@/components/knowledge/KnowledgeSearchBar'
 import type { ResourceType } from '@/features/resources/types'
 
 export const revalidate = 60
@@ -50,26 +51,40 @@ export default async function ResourcesPage({ searchParams }: ResourcesPageProps
   ])
 
   return (
-    <main id="main-content">
-      {/* Hero */}
-      <section className="bg-wial-navy py-16 text-white">
+    <main id="main-content" className="bg-white">
+      {/* Hero Section */}
+      <section className="bg-wial-navy py-20 text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Resources</h1>
-              <p className="mt-4 max-w-2xl text-lg text-white/80">
+          <div className="flex items-center justify-between gap-8">
+            <div className="max-w-3xl">
+              <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl">Resources</h1>
+              <p className="mt-6 text-xl leading-8 text-white/80">
                 Videos, articles, PDFs, and tools to deepen your Action Learning practice.
               </p>
             </div>
             {canManage && (
               <Link
                 href="/resources/manage"
-                className="shrink-0 rounded-lg border border-white/30 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                className="shrink-0 rounded-xl bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20"
               >
                 Manage Resources
               </Link>
             )}
           </div>
+        </div>
+      </section>
+
+      {/* Primary Discovery Section (AI Search) */}
+      <section className="relative z-10 -mt-10 px-6 pb-16 lg:px-8">
+        <div className="shadow-navy/10 mx-auto max-w-5xl rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl">
+          <div className="mb-10 text-center">
+            <h2 className="text-wial-navy text-3xl font-bold">Search the Knowledge Base</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-gray-500">
+              Ask questions or find specific topics across our entire library of research articles,
+              videos, and webinars.
+            </p>
+          </div>
+          <KnowledgeSearchBar userRole={ctx?.globalRole ?? null} />
         </div>
       </section>
 

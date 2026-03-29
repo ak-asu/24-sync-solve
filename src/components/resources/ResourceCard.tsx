@@ -19,13 +19,15 @@ const TYPE_ICONS = {
   article: FileText,
   pdf: Download,
   link: ExternalLink,
+  webinar: Play,
 }
 
-const CTA_LABELS = {
+const CTA_LABELS: Record<string, string> = {
   video: 'Watch',
   article: 'Read',
   pdf: 'Download',
   link: 'Visit',
+  webinar: 'Watch',
 }
 
 export function ResourceCard({ resource, isCompleted }: ResourceCardProps) {
@@ -71,8 +73,47 @@ export function ResourceCard({ resource, isCompleted }: ResourceCardProps) {
         <h3 className="text-wial-navy line-clamp-2 text-sm leading-snug font-semibold">
           {resource.title}
         </h3>
-        {resource.description && (
+
+        {/* Presenter / Authors Meta */}
+        {(resource.presenter || (resource.authors && resource.authors.length > 0)) && (
+          <p className="text-[11px] font-medium text-gray-500">
+            {resource.type === 'webinar' && resource.presenter && (
+              <span>By {resource.presenter}</span>
+            )}
+            {resource.type === 'article' && resource.authors && (
+              <span>
+                {resource.authors.join(', ')}
+                {resource.published_year && ` • ${resource.published_year}`}
+              </span>
+            )}
+          </p>
+        )}
+
+        {/* AI Summary */}
+        {resource.summary && (
+          <div className="rounded-lg bg-blue-50/50 p-2.5">
+            <p className="line-clamp-3 text-xs leading-relaxed text-blue-900 italic">
+              "{resource.summary}"
+            </p>
+          </div>
+        )}
+
+        {resource.description && !resource.summary && (
           <p className="line-clamp-2 text-xs text-gray-500">{resource.description}</p>
+        )}
+
+        {/* Key Findings Tags */}
+        {resource.relevance_tags && resource.relevance_tags.length > 0 && (
+          <div className="mt-1 flex flex-wrap gap-1">
+            {resource.relevance_tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-500"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
         )}
 
         {/* CTA — interactive (completion tracking) when authenticated, static otherwise */}
@@ -82,7 +123,7 @@ export function ResourceCard({ resource, isCompleted }: ResourceCardProps) {
             initialCompleted={isCompleted}
             resourceUrl={resource.url}
             isExternal={isExternal}
-            ctaLabel={CTA_LABELS[resource.type]}
+            ctaLabel={CTA_LABELS[resource.type] || 'View'}
           />
         ) : (
           <div className="mt-auto pt-3">
