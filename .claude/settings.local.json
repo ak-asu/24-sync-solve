@@ -13,7 +13,11 @@
       "Bash(mkdir -p \"c:/Users/presyze/Projects/ASU/ohack/src/app/[chapter]/manage/users\")",
       "Bash(mkdir -p \"c:/Users/presyze/Projects/ASU/ohack/src/app/[chapter]/manage/coaches/applications\")",
       "Bash(mkdir -p \"c:/Users/presyze/Projects/ASU/ohack/src/app/[chapter]/manage/approvals\")",
-      "Bash(mkdir -p \"c:/Users/presyze/Projects/ASU/ohack/src/app/[chapter]/manage/settings\")"
+      "Bash(mkdir -p \"c:/Users/presyze/Projects/ASU/ohack/src/app/[chapter]/manage/settings\")",
+      "Bash(ls \"c:/Users/presyze/Projects/ASU/ohack/src/app/\\(auth\\)/\")",
+      "Bash(find /c/Users/presyze/Projects/ASU/ohack/src -type f \\\\\\(-name *.ts -o -name *.tsx \\\\\\))",
+      "Bash(find /c/Users/presyze/Projects/ASU/ohack -name *.json -path *messages*)",
+      "Bash(grep -n \"PermissionGate\\\\|usePermissions\" c:/Users/presyze/Projects/ASU/ohack/src -r --include=*.tsx --include=*.ts)"
     ]
   }
 }

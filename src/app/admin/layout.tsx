@@ -31,13 +31,16 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
   // ── Role guard: must be super_admin ───────────────────────────────────────────
   const { data: profile } = await supabase
     .from('profiles')
-    .select('role, full_name')
+    .select('role, full_name, is_suspended')
     .eq('id', user.id)
     .single()
 
+  if (profile?.is_suspended) {
+    redirect('/suspended')
+  }
+
   if (profile?.role !== 'super_admin') {
-    // Redirect non-admins to home with an error indication
-    redirect('/?error=unauthorized')
+    redirect('/unauthorized')
   }
 
   // Fetch pending approvals count for sidebar badge

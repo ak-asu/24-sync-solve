@@ -226,6 +226,15 @@ export const roleSuspensionSchema = suspensionSchema.extend({
 
 export type RoleSuspensionInput = z.infer<typeof roleSuspensionSchema>
 
+/** Role-level unsuspension — same as roleSuspensionSchema but without mandatory reason */
+export const roleUnsuspensionSchema = z.object({
+  user_id: uuidSchema,
+  chapter_id: uuidSchema,
+  role: z.enum(['chapter_lead', 'content_editor', 'coach', 'user']),
+})
+
+export type RoleUnsuspensionInput = z.infer<typeof roleUnsuspensionSchema>
+
 /** Chapter request form */
 export const chapterRequestSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(100),

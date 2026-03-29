@@ -143,7 +143,7 @@ export default async function DashboardPage() {
   const hasPendingApp = !!pendingAppResult?.data
   const showApplyCTA = !isCoach && !hasPendingApp && profile?.role === 'user'
 
-  const membershipStatus = profile?.membership_status ?? 'inactive'
+  const membershipStatus = profile?.membership_status ?? 'none'
   const membershipActive = membershipStatus === 'active'
 
   const name = profile?.full_name ?? user.email ?? 'User'

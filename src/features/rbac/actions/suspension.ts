@@ -5,7 +5,12 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { requirePermission } from '@/lib/permissions/context'
 import { roleCanSuspend } from '@/lib/permissions/permissions'
-import { suspensionSchema, roleSuspensionSchema, uuidSchema } from '@/lib/utils/validation'
+import {
+  suspensionSchema,
+  roleSuspensionSchema,
+  roleUnsuspensionSchema,
+  uuidSchema,
+} from '@/lib/utils/validation'
 import type { ActionResult, UserRole } from '@/types'
 import type { Json } from '@/types/database'
 
@@ -238,10 +243,9 @@ export async function unsuspendChapterRoleAction(
     user_id: formData.get('user_id') as string,
     chapter_id: formData.get('chapter_id') as string,
     role: formData.get('role') as string,
-    reason: '',
   }
 
-  const result = roleSuspensionSchema.safeParse(raw)
+  const result = roleUnsuspensionSchema.safeParse(raw)
   if (!result.success) {
     return { success: false, error: 'Invalid input.' }
   }

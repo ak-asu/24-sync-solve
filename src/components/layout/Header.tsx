@@ -65,7 +65,7 @@ export async function Header({ accentColor, chapterSlug, chapterName }: HeaderPr
       fullName: profile?.full_name ?? null,
       avatarUrl: profile?.avatar_url ?? null,
       isSuspended: profile?.is_suspended ?? false,
-      membershipStatus: (profile?.membership_status ?? 'inactive') as AuthUser['membershipStatus'],
+      membershipStatus: (profile?.membership_status ?? 'none') as AuthUser['membershipStatus'],
       chapterRoles: chapterRolesMap,
     }
 

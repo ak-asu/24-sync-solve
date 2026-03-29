@@ -29,6 +29,7 @@ export function RoleAssignmentForm({ userId, currentRole }: RoleAssignmentFormPr
         Global role for user
       </label>
       <select
+        key={currentRole}
         id={`global-role-${userId}`}
         name="role"
         defaultValue={currentRole}
