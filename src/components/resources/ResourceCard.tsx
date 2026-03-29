@@ -60,7 +60,7 @@ export function ResourceCard({ resource, isCompleted, canGenerateAI = false }: R
   const Icon = TYPE_ICONS[safeType]
   const typeLabel = TYPE_LABELS[safeType]
   const typeColor = TYPE_COLORS[safeType]
-  const ctaLabel = CTA_LABELS[safeType]
+  const ctaLabel = CTA_LABELS[safeType] ?? 'Open'
   const thumbnail =
     resource.thumbnail_url ??
     (safeType === 'video' || safeType === 'webinar' ? getYouTubeThumbnail(resource.url) : null)

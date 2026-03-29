@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useTransition } from 'react'
 import { useTranslations } from 'next-intl'
+import { Button } from '@heroui/react'
 
 interface ResourceScopeToggleProps {
   currentScope: 'chapter' | 'all'
@@ -28,33 +29,38 @@ export function ResourceScopeToggle({ currentScope, chapterName }: ResourceScope
     })
   }
 
-  const base =
-    'rounded-full px-3 py-1.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1'
-  const active = 'bg-wial-navy text-white focus:ring-wial-navy'
-  const inactive = 'bg-gray-100 text-gray-600 hover:bg-gray-200 focus:ring-gray-400'
-
   return (
     <div
       className={`inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white p-1 shadow-sm ${isPending ? 'opacity-60' : ''}`}
       role="group"
       aria-label="Resource scope"
     >
-      <button
+      <Button
         type="button"
-        onClick={() => setScope('chapter')}
-        className={`${base} ${currentScope === 'chapter' ? active : inactive}`}
+        onPress={() => setScope('chapter')}
+        variant={currentScope === 'chapter' ? 'primary' : 'ghost'}
+        className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
+          currentScope === 'chapter'
+            ? 'bg-wial-navy text-white'
+            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+        }`}
         aria-pressed={currentScope === 'chapter'}
       >
         {chapterName}
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
-        onClick={() => setScope('all')}
-        className={`${base} ${currentScope === 'all' ? active : inactive}`}
+        onPress={() => setScope('all')}
+        variant={currentScope === 'all' ? 'primary' : 'ghost'}
+        className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
+          currentScope === 'all'
+            ? 'bg-wial-navy text-white'
+            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+        }`}
         aria-pressed={currentScope === 'all'}
       >
         {t('all')}
-      </button>
+      </Button>
     </div>
   )
 }

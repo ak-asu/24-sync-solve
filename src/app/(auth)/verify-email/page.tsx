@@ -2,8 +2,9 @@
 
 import { useActionState } from 'react'
 import Link from 'next/link'
-import { Mail, Loader2, CheckCircle } from 'lucide-react'
+import { Mail, CheckCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { Button } from '@heroui/react'
 import { resendVerificationAction } from '@/features/auth/actions/resendVerification'
 import type { ActionResult } from '@/types'
 
@@ -57,14 +58,14 @@ export default function VerifyEmailPage() {
 
       {/* Resend form */}
       <form action={formAction} className="mt-6">
-        <button
+        <Button
           type="submit"
-          disabled={isPending || didResend}
-          className="bg-wial-navy hover:bg-wial-navy-dark inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+          isDisabled={isPending || didResend}
+          isPending={isPending}
+          className="bg-wial-navy hover:bg-wial-navy-dark rounded-lg px-5 text-sm font-semibold text-white"
         >
-          {isPending && <Loader2 size={15} className="animate-spin" aria-hidden="true" />}
           {isPending ? t('resending') : t('resendButton')}
-        </button>
+        </Button>
       </form>
 
       {/* Already verified hint */}

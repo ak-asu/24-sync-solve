@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react'
 import { useTranslations } from 'next-intl'
+import { Button, ListBox, ListBoxItem, Select } from '@heroui/react'
 import { updateGlobalRoleAction } from '@/features/rbac/actions/roleManagement'
 import { ROLE_LABELS } from '@/lib/utils/constants'
 import type { ActionResult, UserRole } from '@/types'
@@ -27,30 +28,42 @@ export function RoleAssignmentForm({ userId, currentRole }: RoleAssignmentFormPr
   return (
     <form action={formAction} className="flex items-center gap-2">
       <input type="hidden" name="user_id" value={userId} />
-      <label htmlFor={`global-role-${userId}`} className="sr-only">
-        {t('globalRoleLabel')}
-      </label>
-      <select
-        key={currentRole}
-        id={`global-role-${userId}`}
-        name="role"
-        defaultValue={currentRole}
-        className="rounded-lg border border-gray-300 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-        required
-      >
-        {GLOBAL_ROLES.map((role) => (
-          <option key={role} value={role}>
-            {ROLE_LABELS[role] ?? role}
-          </option>
-        ))}
-      </select>
-      <button
+      <div>
+        <label htmlFor={`global-role-${userId}-trigger`} className="sr-only">
+          {t('globalRoleLabel')}
+        </label>
+        <Select
+          key={currentRole}
+          name="role"
+          isRequired
+          className="min-w-36"
+          aria-label={t('globalRoleLabel')}
+        >
+          <Select.Trigger id={`global-role-${userId}-trigger`}>
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox aria-label={t('globalRoleLabel')}>
+              {GLOBAL_ROLES.map((role) => (
+                <ListBoxItem key={role} id={role} textValue={ROLE_LABELS[role] ?? role}>
+                  {ROLE_LABELS[role] ?? role}
+                </ListBoxItem>
+              ))}
+            </ListBox>
+          </Select.Popover>
+        </Select>
+      </div>
+      <Button
         type="submit"
-        disabled={isPending}
-        className="rounded-lg bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+        isDisabled={isPending}
+        isPending={isPending}
+        size="sm"
+        variant="primary"
+        className="rounded-lg text-xs font-semibold"
       >
         {isPending ? t('updating') : t('updateButton')}
-      </button>
+      </Button>
       {state && !state.success && (
         <span className="text-xs text-red-600" role="alert">
           {state.error}
