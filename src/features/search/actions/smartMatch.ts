@@ -9,8 +9,8 @@ import { getCoaches, CoachWithBasicProfile } from '@/features/coaches/queries/ge
 export interface SmartMatchResult {
   coaches: CoachWithBasicProfile[]
   parsedFilters: {
-    country?: string
-    certification?: string
+    country?: string | null
+    certification?: string | null
     semanticSearchQuery: string
     detectedLanguage: string
   }
@@ -25,7 +25,7 @@ export async function smartMatchCoaches(query: string): Promise<SmartMatchResult
 
   // Step 1: Parse the user query into structured filters and a semantic search term
   const { object: parsedQuery } = await generateObject({
-    model: openai('gpt-4o-mini', { structuredOutputs: true }),
+    model: openai('gpt-4o-mini'),
     schema: z.object({
       country: z
         .string()
@@ -53,6 +53,7 @@ export async function smartMatchCoaches(query: string): Promise<SmartMatchResult
   const adminClient = createAdminClient()
   const { items: coaches } = await getCoaches(adminClient, {
     q: parsedQuery.semanticSearchQuery,
+    searchMode: 'semantic',
     country: parsedQuery.country || undefined,
     certification: parsedQuery.certification ? (parsedQuery.certification as any) : undefined,
     limit: 5,

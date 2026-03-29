@@ -7,6 +7,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 
 interface CoachFilters {
   q?: string
+  searchMode?: 'semantic' | 'text' // default is 'text'
   certification?: CertificationLevel
   country?: string
   chapterId?: string
@@ -51,38 +52,42 @@ export async function getCoaches(
   let matchedCoachIds: string[] | null = null
   let matchScores: Record<string, number> = {}
 
+  const searchMode = filters.searchMode ?? 'text'
+
   // Semantic/Full-text search override
   if (filters.q && filters.q.trim()) {
-    try {
-      // Get embedding for the user's natural language query
-      const embedding = await getEmbedding(filters.q)
+    if (searchMode === 'semantic') {
+      try {
+        // Get embedding for the user's natural language query
+        const embedding = await getEmbedding(filters.q)
 
-      // Look up coach documents natively via RPC using admin client to bypass RLS on coach_search_documents table
-      const adminClient = createAdminClient()
-      const { data, error: rpcError } = await (adminClient as any).rpc('match_coach_documents', {
-        query_embedding: embedding as any,
-        match_threshold: 0.8,
-        match_count: limit + 10, // Grab a bit extra for pagination margin
-      })
-
-      if (rpcError) {
-        console.error('RPC Error from Supabase:', rpcError)
-      }
-
-      const matches = data as { coach_id: string; similarity: number }[] | null
-      console.log('Semantic search matches count:', matches?.length || 0)
-
-      if (matches && matches.length > 0) {
-        matchedCoachIds = matches.map((m: any) => m.coach_id)
-        matches.forEach((m: any) => {
-          matchScores[m.coach_id] = m.similarity
+        // Look up coach documents natively via RPC using admin client to bypass RLS on coach_search_documents table
+        const adminClient = createAdminClient()
+        const { data, error: rpcError } = await (adminClient as any).rpc('match_coach_documents', {
+          query_embedding: embedding as any,
+          match_threshold: 0.8,
+          match_count: limit + 10, // Grab a bit extra for pagination margin
         })
-      } else {
-        matchedCoachIds = [] // Found nothing
+
+        if (rpcError) {
+          console.error('RPC Error from Supabase:', rpcError)
+        }
+
+        const matches = data as { coach_id: string; similarity: number }[] | null
+        console.log('Semantic search matches count:', matches?.length || 0)
+
+        if (matches && matches.length > 0) {
+          matchedCoachIds = matches.map((m: any) => m.coach_id)
+          matches.forEach((m: any) => {
+            matchScores[m.coach_id] = m.similarity
+          })
+        } else {
+          matchedCoachIds = [] // Found nothing
+        }
+      } catch (err) {
+        console.warn('Semantic search failed, falling back to text search:', err)
+        // Fallback
       }
-    } catch (err) {
-      console.warn('Semantic search failed, falling back to text search:', err)
-      // Fallback
     }
 
     if (matchedCoachIds !== null) {
@@ -93,6 +98,7 @@ export async function getCoaches(
         query = query.in('id', matchedCoachIds)
       }
     } else {
+      // Basic text search (regex/tsvector) for basic Browse Directory
       query = query.textSearch('search_vector', filters.q, { type: 'websearch' })
     }
   }
